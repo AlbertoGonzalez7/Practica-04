@@ -19,11 +19,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($user && password_verify($password, $user['contrasenya'])) {
                 $_SESSION['usuario'] = $user['usuari'];
                 $_SESSION['missatge_exit'] = "Login correcto!";
-                header("Location: bienvenida.php"); // Redirige a la página deseada
+                header("Location: ../index_usuari.php"); // Redirige a index_usuari.php tras el login
+                exit();
             } else {
                 $_SESSION['missatge'] = "Usuario o contraseña incorrectos";
                 header("Location: login.php");
+                exit();
             }
+            
         }
     } elseif ($accion == 'registro') {
         // Procesar registro

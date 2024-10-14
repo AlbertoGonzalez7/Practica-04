@@ -173,6 +173,11 @@ function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) 
         <option value="?pagina=1&articles_per_pagina=10" <?php echo (isset($_GET['articles_per_pagina']) && $_GET['articles_per_pagina'] == 10) ? 'selected' : ''; ?>>10 articles</option>
         <option value="?pagina=1&articles_per_pagina=15" <?php echo (isset($_GET['articles_per_pagina']) && $_GET['articles_per_pagina'] == 15) ? 'selected' : ''; ?>>15 articles</option>
     </select>
+
+    <a href='Login/login.php'>
+        <button class="login" role="button">Login/Sign up</button>
+    </a>
+
 </div>
 
 </body> 

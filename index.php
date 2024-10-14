@@ -12,10 +12,7 @@
         <h2>
             <p class="titol">Selecciona una opció</p>
 
-            <input type="submit" value="Insertar article" class="boto" name="insert" formaction="Vistes/insertar.php">
             <input type="submit" value="Mostrar articles" class="boto" name="select" formaction="mostrar.php">
-            <input type="submit" value="Modificar article" class="boto" name="modificar" formaction="Vistes/modificar.php">
-            <input type="submit" value="Eliminar article" class="boto" name="eliminar" formaction="Vistes/eliminar.php">
         </h2>
     </form>
 
