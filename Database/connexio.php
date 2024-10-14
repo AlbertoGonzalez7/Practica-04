@@ -15,6 +15,6 @@ function connectarBD($db_host, $db_usuari, $db_password, $db_nom)
 $db_host = "localhost";
 $db_usuari = "root";
 $db_password = "";
-$db_nom = "pt03_alberto_gonzalez";
+$db_nom = "pt04_alberto_gonzalez";
 
 $db = connectarBD($db_host, $db_usuari, $db_password, $db_nom);

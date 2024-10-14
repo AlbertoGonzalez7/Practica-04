@@ -52,7 +52,8 @@ session_start();
         </div>
 
         <!-- Formulario de login -->
-        <form id="login-form" method="POST" action="../insertar.php" style="display:block;">
+        <form id="login-form" method="POST" action="login_controlador.php" style="display:block;">
+        <input type="hidden" name="accion" value="login">
             <div class="input-container ic2">
                 <input name="usuari" class="input" type="text" placeholder=" " required />
                 <div class="cut"></div>
@@ -64,12 +65,13 @@ session_start();
                 <label for="pass" class="placeholder">Contrasenya</label>
             </div>
             <br>
-            <input type="submit" value="Entrar" class="insertar" name="entrar">
+            <input type="submit" value="login" class="insertar" name="entrar">
         </form>
 
         <!-- Formulario de registro -->
-        <form id="register-form" method="POST" action="../insertar.php" style="display:none;" onsubmit="return validatePassword()">
-            <div class="input-container ic2">
+        <form id="register-form" method="POST" action="login_controlador.php" style="display:none;" onsubmit="return validatePassword()">
+        <input type="hidden" name="accion" value="registro">    
+        <div class="input-container ic2">
                 <input name="usuari" class="input" type="text" placeholder=" " required />
                 <div class="cut"></div>
                 <label for="usuari" class="placeholder">Nom d'usuari</label>
@@ -80,12 +82,13 @@ session_start();
                 <label for="pass" class="placeholder">Contrasenya</label>
             </div>
             <div class="input-container ic2">
-                <input id="confirm-pass" class="input" type="password" placeholder=" " required />
+                <input id="confirm-pass" name="confirm_pass" class="input" type="password" placeholder=" " required />
                 <div class="cut cut-short"></div>
                 <label for="confirm-pass" class="placeholder">Confirma la contrasenya</label>
             </div>
+
             <br>
-            <input type="submit" value="Registrar" class="insertar" name="registrar">
+            <input type="submit" value="registro" class="insertar" name="registrar">
         </form>
 
         <!-- Mensajes de sesión -->

@@ -1,23 +1,23 @@
 <?php
 session_start();
-include 'connexio.php'; // Asegúrate de tener este archivo con los detalles de conexión a la DB
+require_once "../Database/connexio.php"; // Asegúrate de tener este archivo con los detalles de conexión a la base de datos
 
 // Verifica si es login o registro
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $accion = $_POST['accion'];
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
+    $usuari = trim($_POST['usuari']);
+    $password = trim($_POST['pass']);
 
     if ($accion == 'login') {
         // Procesar login
-        if (!empty($username) && !empty($password)) {
-            $sql = "SELECT * FROM usuarios WHERE username = :username";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(['username' => $username]);
+        if (!empty($usuari) && !empty($password)) {
+            $sql = "SELECT * FROM usuaris WHERE usuari = :usuari";
+            $stmt = $db->prepare($sql);
+            $stmt->execute(['usuari' => $usuari]);
             $user = $stmt->fetch();
 
-            if ($user && password_verify($password, $user['password'])) {
-                $_SESSION['usuario'] = $user['username'];
+            if ($user && password_verify($password, $user['contrasenya'])) {
+                $_SESSION['usuario'] = $user['usuari'];
                 $_SESSION['missatge_exit'] = "Login correcto!";
                 header("Location: bienvenida.php"); // Redirige a la página deseada
             } else {
@@ -27,16 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } elseif ($accion == 'registro') {
         // Procesar registro
-        $confirm_password = trim($_POST['confirm_password']);
+        $confirm_password = trim($_POST['confirm_pass']);
 
         // Verifica que las contraseñas coincidan
         if ($password === $confirm_password) {
             // Regex para validar la contraseña
             if (preg_match('/^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,}$/', $password)) {
                 // Verifica que el usuario no exista ya
-                $sql = "SELECT * FROM usuarios WHERE username = :username";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute(['username' => $username]);
+                $sql = "SELECT * FROM usuaris WHERE usuari = :usuari";
+                $stmt = $db->prepare($sql);
+                $stmt->execute(['usuari' => $usuari]);
                 $existing_user = $stmt->fetch();
 
                 if ($existing_user) {
@@ -45,9 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 } else {
                     // Inserta el nuevo usuario en la base de datos
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                    $sql = "INSERT INTO usuarios (username, password) VALUES (:username, :password)";
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute(['username' => $username, 'password' => $hashed_password]);
+                    $sql = "INSERT INTO usuaris (usuari, contrasenya) VALUES (:usuari, :password)";
+                    $stmt = $db->prepare($sql);
+                    $stmt->execute(['usuari' => $usuari, 'password' => $hashed_password]);
 
                     $_SESSION['missatge_exit'] = "Registro exitoso!";
                     header("Location: login.php");
