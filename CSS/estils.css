@@ -1,0 +1,563 @@
+/* # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO */
+
+body {
+    background: #6868AC;
+    text-align: center;
+}
+
+h1 {
+    background-color: rgb(223, 140, 229);
+    text-align: center;
+    font-family: cursive;
+
+}
+
+h2 {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+p {
+
+    color: rgb(255, 0, 0);
+}
+
+.nomcog {
+    text-align: center;
+    font-family: cursive;
+}
+
+.uf {
+    text-align: center;
+    font-family: cursive;
+    color: rgb(250, 147, 3);
+}
+
+.while {
+    color: rgb(47, 44, 230);
+}
+
+.for {
+    color: rgb(232, 43, 43);
+}
+
+.altre {
+    color: rgb(104, 5, 138);
+}
+
+.altre2 {
+    color: rgb(126, 72, 0);
+}
+
+
+.password {
+    font-family: cursive;
+    text-decoration: underline;
+    font-size: 16px;
+    color: rgb(47, 44, 230);
+}
+
+.guardar {
+    color: aliceblue;
+    background-color: lightgreen;
+}
+
+/* Estil de la taula */
+
+.table-wrapper {
+    margin: 10px 70px 70px;
+    box-shadow: 0px 35px 50px rgba(0, 0, 0, 0.2);
+}
+
+.fl-table {
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: rgb(255, 255, 255);
+}
+
+table {
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    unicode-bidi: isolate;
+    border-spacing: 2px;
+    border-color: gray;
+}
+
+.fl-table td,
+.fl-table th {
+    text-align: center;
+    padding: 8px;
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: 100px;
+    overflow-wrap: break-word;
+}
+
+
+.fl-table thead th {
+    color: #ffffff;
+    background: #4FC3A1;
+}
+
+
+.fl-table thead th:nth-child(odd) {
+    color: #ffffff;
+    background: #324960;
+}
+
+.fl-table tr:nth-child(even) {
+    background: #F8F8F8;
+}
+
+
+.input {
+    border: 1px solid #888;
+    box-sizing: border-box;
+    display: block;
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 10px 0;
+    padding: 2px 5px;
+    width: 300px;
+}
+
+.tornar {
+  background: #4545f3;
+  border-radius: 999px;
+  box-shadow: #4545f3 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
+}
+
+.login {
+    background: #de6c46;
+    border-radius: 999px;
+    box-shadow: #ae5826 0 10px 20px -10px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    opacity: 1;
+    outline: 0 solid transparent;
+    padding: 8px 18px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: fit-content;
+    word-break: break-word;
+    border: 0;
+
+    
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000; 
+  }
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2&family=Calligraffitti&display=swap');
+
+.titol {
+    font-family: 'Calligraffitti', cursive;
+    font-weight: 700;
+    font-size: 5rem;
+    display: flex;
+    text-shadow: -15px 5px 20px #ced0d3;
+    letter-spacing: 0.02em;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #F9f1cc;
+    text-shadow: 5px 5px 0px #FFB650,
+        10px 10px 0px #FFD662,
+        15px 15px 0px #FF80BF,
+        20px 20px 0px #EF5097,
+        25px 25px 0px #6868AC,
+        30px 30px 0px #90B1E0;
+}
+
+.subtitol {
+    font-family: 'Calligraffitti', cursive;
+    font-weight: 100;
+    font-size: 5rem;
+    display: flex;
+    text-shadow: -15px 5px 20px #ced0d3;
+    letter-spacing: 0.02em;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #d3f9cc;
+    text-shadow: 5px 5px 0px #FFB650,
+        10px 10px 0px #FFD662,
+        15px 15px 0px #FF80BF,
+        20px 20px 0px #EF5097,
+        25px 25px 0px #6868AC,
+        30px 30px 0px #90B1E0;
+}
+
+.boto {
+    background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    height: 4rem;
+    padding: 0 1.6rem;
+    text-align: center;
+    text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+    transition: all .5s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .boto:hover {
+    box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+    transition-duration: .1s;
+  }
+  
+  @media (min-width: 768px) {
+    .boto {
+      padding: 0 2.6rem;
+    }
+}
+
+/* Boto per seleccionar camps en modificar.php */
+
+  .checkbox-wrapper-22 .switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+  }
+
+  .checkbox-wrapper-22 .switch input {
+    display:none;
+  }
+
+  .checkbox-wrapper-22 .slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+  }
+
+  .checkbox-wrapper-22 .slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+  }
+
+  .checkbox-wrapper-22 input:checked + .slider {
+    background-color: #66bb6a;
+  }
+
+  .checkbox-wrapper-22 input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+
+  .checkbox-wrapper-22 .slider.round {
+    border-radius: 34px;
+  }
+
+  .checkbox-wrapper-22 .slider.round:before {
+    border-radius: 50%;
+  }
+
+
+  /* Boto per posar ID a modificar.php */
+
+  .boton-id {
+    background-color: #9b59b6; /* Color de fondo morado más claro */
+    color: white; /* Color del texto */
+    padding: 10px 5px; /* Espaciado interno */
+    border-radius: 20px; /* Bordes redondeados */
+    text-align: center; /* Centrar el texto */
+    cursor: text; /* Cambiar el cursor al pasar por encima */
+    display: inline-block; /* Para que se comporte como un botón */
+    margin-left: 10px; /* Espacio entre el campo ID y el botón */
+    position: relative; /* Para el posicionamiento del texto */
+    overflow: hidden; /* Para ocultar el texto cuando se seleccione */
+    font-family: 'Rocher'; /* Fuente más atractiva */
+    font-size: 35px; /* Tamaño de letra más grande */
+    width: 200px; /* Ancho específico del botón */
+}
+
+.boton-id::placeholder {
+    color: white; /* Color del texto del placeholder */
+    opacity: 0.7; /* Opacidad del placeholder */
+}
+
+
+
+  /* Lletres titol y cos per modificar.php */
+
+  @font-face {
+    font-family: 'Rocher';
+    src: url(https://assets.codepen.io/9632/RocherColorGX.woff2);
+  }
+  
+  .titol-chulo {
+    font-family: 'Rocher';
+    font-size: 50px; /* Ajusta el tamaño según tus preferencias */
+    color: #FFFF00;
+  }
+
+  .textarea {
+    background-color: #D8BFD8; /* Morado clarito */
+    border: 1px solid #ccc;
+    border-radius: 12px; /* Bordes redondeados */
+    width: 45%; /* Tamaño fijo de ancho */
+    height: 60px; /* Tamaño fijo de altura */
+    padding: 10px;
+    resize: none; /* Deshabilitar redimensionar */
+    font-size: 25px;
+    color: #333;
+    font-family: 'Calligraffitti', cursive;
+  }
+
+/* Estilo base para el contenedor de artículos */
+.articulos {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+/* Otros estilos */
+main {
+    flex: 1;
+}
+
+/* Ajuste de contenedor para la paginación, fijado al fondo */
+.pagination {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+    border-radius: 2px;
+    z-index: 1000;
+}
+
+/* Estilos para los botones de paginación */
+.pagination a {
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    border-radius: 4px;
+    margin: 0 5px;
+    background: rgba(0, 0, 0, 0.3); /* Fondo semitransparente */
+}
+
+/* Efectos al pasar por encima de los botones */
+.pagination a:hover,
+.pagination a.active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Efecto hover y estilo de botones deshabilitados */
+.pagination a:hover {
+    background-color: #4CAF50; /* Efecto hover para resaltar */
+}
+
+.pagination a.active {
+    background-color: #4CAF50; /* Página activa */
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+.pagination a.disabled {
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #777;
+    cursor: not-allowed;
+}
+
+
+
+.box {
+    position: fixed; /* Fija el contenedor en la pantalla */
+    bottom: 0%; /* Espacio desde el fondo de la ventana */
+    left: 0px; /* Espacio desde el lado izquierdo de la ventana */
+    padding: 10px; /* Espaciado interior */
+    border-radius: 5px; /* Bordes redondeados */
+    z-index: 1000; /* Asegura que esté encima de otros elementos */
+  }
+  
+  .box select {
+    background-color: #0563af;
+    color: white;
+    padding: 12px;
+    width: 250px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+  }
+  
+  .box:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .box select option {
+    padding: 30px;
+  }
+
+
+/* Estil formulari login */
+
+.form_login {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	font-family: 'Jost', sans-serif;
+	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+}
+
+.form_login .main {
+	width: 350px;
+	height: 500px;
+	background: red;
+	overflow: hidden;
+	background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/cover;
+	border-radius: 10px;
+	box-shadow: 5px 20px 50px #000;
+}
+
+.form_login #chk {
+	display: none;
+}
+
+.form_login .signup {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.form_login label {
+	color: #fff;
+	font-size: 2.3em;
+	justify-content: center;
+	display: flex;
+	margin: 50px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+}
+
+.form_login input {
+	width: 60%;
+	height: 10px;
+	background: #e0dede;
+	justify-content: center;
+	display: flex;
+	margin: 20px auto;
+	padding: 12px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+
+.form_login button {
+	width: 60%;
+	height: 40px;
+	margin: 10px auto;
+	justify-content: center;
+	display: block;
+	color: #fff;
+	background: #573b8a;
+	font-size: 1em;
+	font-weight: bold;
+	margin-top: 30px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+
+.form_login button:hover {
+	background: #6d44b8;
+}
+
+.form_login .login {
+	height: 460px;
+	background: #eee;
+	border-radius: 60% / 10%;
+	transform: translateY(-180px);
+	transition: .8s ease-in-out;
+}
+
+.form_login .login label {
+	color: #573b8a;
+	transform: scale(.6);
+}
+
+.form_login #chk:checked ~ .login {
+	transform: translateY(-500px);
+}
+
+.form_login #chk:checked ~ .login label {
+	transform: scale(1);
+}
+
+.form_login #chk:checked ~ .signup label {
+	transform: scale(.6);
+}
+
