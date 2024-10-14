@@ -33,11 +33,15 @@ if (isset($_POST['insert'])) {
 
         // Afegim les incidències:
         if ($select->rowCount() == 0) {
-            function insert($connexio, $titol, $cos){
-                $insert = $connexio->prepare("INSERT INTO articles(titol, cos) VALUES (?, ?)");
-                $insert->execute([$titol, $cos]);
+            function insert($connexio, $titol, $cos, $usuari_id) {
+                $insert = $connexio->prepare("INSERT INTO articles(titol, cos, usuari_id) VALUES (?, ?, ?)");
+                $insert->execute([$titol, $cos, $usuari_id]);
             }
-            insert($connexio, $titol, $cos);
+            
+            // Obtener el id del usuario de la sesión
+            $usuari_id = $_SESSION['user_id']; // Asegúrate de que 'user_id' esté en la sesión
+            
+            insert($connexio, $titol, $cos, $usuari_id);
             $_SESSION['missatge_exit'] = "Article insertat correctament";
             $_SESSION['titol'] = ""; // Netejem el valor de titol
             $_SESSION['cos'] = ""; // Netejem el valor de cos

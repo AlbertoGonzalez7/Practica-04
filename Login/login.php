@@ -65,7 +65,7 @@ session_start();
                 <label for="pass" class="placeholder">Contrasenya</label>
             </div>
             <br>
-            <input type="submit" value="login" class="insertar" name="entrar">
+            <input type="submit" value="Login" class="insertar" name="entrar">
         </form>
 
         <!-- Formulario de registro -->
@@ -88,7 +88,7 @@ session_start();
             </div>
 
             <br>
-            <input type="submit" value="registro" class="insertar" name="registrar">
+            <input type="submit" value="Registre" class="insertar" name="registrar">
         </form>
 
         <!-- Mensajes de sesión -->

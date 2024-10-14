@@ -30,7 +30,7 @@ session_start();
             <br>
             <input type="submit" value="Insertar" class="insertar" name="insert">
             <br><br>
-            <a href="../index.php">
+            <a href="../index_usuari.php">
                 <button type="button" class="tornar" role="button">Anar enrere</button>
             </a>
 

@@ -18,11 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($user && password_verify($password, $user['contrasenya'])) {
                 $_SESSION['usuario'] = $user['usuari'];
-                $_SESSION['missatge_exit'] = "Login correcto!";
+                $_SESSION['user_id'] = $user['id']; // Almacena el id del usuario en la sesión
                 header("Location: ../index_usuari.php"); // Redirige a index_usuari.php tras el login
                 exit();
             } else {
-                $_SESSION['missatge'] = "Usuario o contraseña incorrectos";
+                $_SESSION['missatge'] = "Usuari o contrasenya incorrectes";
                 header("Location: login.php");
                 exit();
             }
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $existing_user = $stmt->fetch();
 
                 if ($existing_user) {
-                    $_SESSION['missatge'] = "El nombre de usuario ya está registrado";
+                    $_SESSION['missatge'] = "El nom d'usuari ja està agafat";
                     header("Location: login.php");
                 } else {
                     // Inserta el nuevo usuario en la base de datos
@@ -52,15 +52,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmt = $db->prepare($sql);
                     $stmt->execute(['usuari' => $usuari, 'password' => $hashed_password]);
 
-                    $_SESSION['missatge_exit'] = "Registro exitoso!";
+                    $_SESSION['missatge_exit'] = "Registrat amb exit!";
                     header("Location: login.php");
                 }
             } else {
-                $_SESSION['missatge'] = "La contraseña no cumple con los requisitos";
+                $_SESSION['missatge'] = "La contrasenya no compleix els requisits";
                 header("Location: login.php");
             }
         } else {
-            $_SESSION['missatge'] = "Las contraseñas no coinciden";
+            $_SESSION['missatge'] = "Les contrasenyes no coincideixen";
             header("Location: login.php");
         }
     }
