@@ -6,6 +6,8 @@ if (isset($_SESSION['usuario'])) {
 } else {
     $usuari = "Invitat";
 }
+
+include "Vistes/navbar_view.php";
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +15,7 @@ if (isset($_SESSION['usuario'])) {
 
 <head>
     <meta charset="utf-8" />
-    <title>Pràctica 2 - Connexions PDO</title>
+    <title>Pràctica 4</title>
     <link rel="stylesheet" type="text/css" href="CSS/estils.css">
 </head>
 
@@ -21,6 +23,7 @@ if (isset($_SESSION['usuario'])) {
     <form method="POST" action="../Database/connexio.php">
         <h2>
             <p class="titol">Selecciona una opció</p>
+            <br><br>
 
             <input type="submit" value="Insertar article" class="boto" name="insert" formaction="Vistes/insertar.php">
             <input type="submit" value="Mostrar articles" class="boto" name="select" formaction="mostrar_usuari.php">
@@ -28,12 +31,6 @@ if (isset($_SESSION['usuario'])) {
             <input type="submit" value="Eliminar article" class="boto" name="eliminar" formaction="Vistes/eliminar.php">
         </h2>
     </form>
-
-    <a href='index.php'>
-        <button class="logout" role="button">Logout</button>
-    </a>
-
-    <button class="benvingut">Benvingut <?php echo htmlspecialchars($usuari); ?></button>
 
 
 </body>

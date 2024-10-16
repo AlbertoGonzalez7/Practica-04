@@ -6,6 +6,7 @@ $connexio = new PDO("mysql:host=$db_host; dbname=$db_nom", $db_usuari, $db_passw
 
 $errors = []; 
 $exit = [];
+$user_id = $_SESSION['user_id'] ?? null;
 
 $id = trim($_POST['id'] ?? null);
 $field = $_POST['field'] ?? null; // Pot ser titol o cos
@@ -33,8 +34,8 @@ if (!empty($errors)) {
 
 // Si no hi ha cap error, busquem l'article per modificar-lo
 if ($id && $field) {
-    $select = $connexio->prepare('SELECT * FROM articles WHERE id = ?');
-    $select->execute([$id]);
+    $select = $connexio->prepare('SELECT * FROM articles WHERE id = ? AND usuari_id = ?');
+    $select->execute([$id, $user_id]);
 
     if ($select->rowCount() > 0) {
         // Mostrar l'article
@@ -54,8 +55,8 @@ if ($id && $field) {
         // Si es fa click en el botó de modificar:
         if (isset($_POST['new_value'])) {
             $new_value = $_POST['new_value'];
-            $update = $connexio->prepare("UPDATE articles SET $field = ? WHERE id = ?");
-            $update->execute([$new_value, $id]);
+            $update = $connexio->prepare("UPDATE articles SET $field = ? WHERE id = ? AND usuari_id = ?");
+            $update->execute([$new_value, $id, $user_id]);
 
             $_SESSION['missatge_exit'] = "Article modificat correctament.";
             header("Location: Vistes/modificar.php");
@@ -72,7 +73,7 @@ if ($id && $field) {
                   </form>";
 
             // Botó per tornar enrere
-            echo "<a href='index.php'>
+            echo "<a href='index_usuari.php'>
                     <button class='boto' role='button'>Tornar enrere</button>
                   </a>";
         }

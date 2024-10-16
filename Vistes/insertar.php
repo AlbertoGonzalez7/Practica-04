@@ -1,13 +1,21 @@
 <?php
-# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
 session_start();
+
+if (isset($_SESSION['usuario'])) {
+    $usuari = $_SESSION['usuario'];
+} else {
+    $usuari = "Invitat";
+}
+
+include "navbar_view.php";
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link rel="stylesheet" type="text/css" href="../CSS/estil_formulari.css">
     <title>Document</title>
 </head>
@@ -15,17 +23,17 @@ session_start();
     <form method="POST" action="../insertar.php">
         <div class="form">
             <div class="title">Insertar article</div>
-            <div class="subtitle">Afegeix el teu article!</div>
+            <div class="subtitle">Afegeix el teu article! Títol i Cos</div>
 
             <div class="input-container ic2">
                 <input name="titol" class="input" type="text" placeholder=" " value="<?php echo isset($_SESSION['titol']) ? htmlspecialchars($_SESSION['titol']) : ''; ?>" />
                 <div class="cut"></div>
-                <label for="titol" class="placeholder">Titol</label>
+                <label for="titol" class="placeholder"></label>
             </div>
             <div class="input-container ic2">
                 <input name="cos" class="input" type="text" placeholder=" " value="<?php echo isset($_SESSION['cos']) ? htmlspecialchars($_SESSION['cos']) : ''; ?>" />
                 <div class="cut cut-short"></div>
-                <label for="cos" class="placeholder">Cos</label>
+                <label for="cos" class="placeholder"></label>
             </div>
             <br>
             <input type="submit" value="Insertar" class="insertar" name="insert">
@@ -50,5 +58,8 @@ session_start();
 
         </div>
     </form>
+
 </body>
 </html>
+
+

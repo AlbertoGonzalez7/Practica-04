@@ -26,7 +26,7 @@ session_start();
           <br>
           <input type="submit" value="Buscar" class="insertar" name="buscar">
           <br><br>
-          <a href="../index.php">
+          <a href="../index_usuari.php">
               <button type="button" class="tornar" role="button">Anar enrere</button>
           </a>
           <?php

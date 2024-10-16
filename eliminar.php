@@ -60,7 +60,7 @@ if (isset($_POST['buscar']) && $id) {
                 // Si no ha sigut trobat l'article ho mostrem:
     } else {
         echo "<p class='titol'>L'article no ha sigut trobat</p>
-                <a href='index.php'>
+                <a href='index_usuari.php'>
                 <button class='tornar' role='button'>Tornar enrere</button>
                 </a>";
     }
@@ -71,7 +71,7 @@ if (isset($_POST['eliminar']) && $id) {
     $del = $connexio->prepare('DELETE FROM articles WHERE id = ?');
     $del->execute([$id]);
     echo "<p class='titol'>Article eliminat correctament</p>";
-    echo "<a href='index.php'>
+    echo "<a href='index_usuari.php'>
           <button class='tornar' role='button'>Tornar enrere</button>
           </a>";
 }

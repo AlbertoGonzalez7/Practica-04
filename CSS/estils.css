@@ -20,7 +20,7 @@ h2 {
 
 p {
 
-    color: rgb(255, 0, 0);
+    color: rgb(17, 255, 0);
 }
 
 .nomcog {
@@ -258,6 +258,7 @@ table {
         20px 20px 0px #EF5097,
         25px 25px 0px #6868AC,
         30px 30px 0px #90B1E0;
+        margin-top: 150px;
 }
 
 .subtitol {
