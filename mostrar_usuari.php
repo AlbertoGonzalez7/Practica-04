@@ -1,7 +1,19 @@
+<?php
+# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+session_start();
+
+if (isset($_SESSION['usuario'])) {
+    $usuari = $_SESSION['usuario'];
+} else {
+    $usuari = "Invitat";
+}
+
+include "Vistes/navbar_view.php";
+?>
+
 <?php 
 # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
 require_once "Database/connexio.php";
-session_start(); // Asegúrate de que las sesiones están activas
 
 $connexio = new PDO("mysql:host=$db_host; dbname=$db_nom", $db_usuari, $db_password);
 
@@ -158,10 +170,10 @@ function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) 
     <title>Document</title>
 </head>
 <body>
-    <p class="titol">Taula d'articles</p>
+    <p class="titol">Taula d'articles</p><br>
     
     <a href='index_usuari.php'>
-        <button class="tornar" role="button">Anar enrere</button>
+        <button class="tornar" role="button">Anar enrere</button><br>
     </a>
 
     <br>
@@ -182,9 +194,6 @@ function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) 
             <option value="?pagina=1&articles_per_pagina=15" <?php echo (isset($_GET['articles_per_pagina']) && $_GET['articles_per_pagina'] == 15) ? 'selected' : ''; ?>>15 articles</option>
         </select>
 
-        <a href='Login/login.php'>
-            <button class="logout" role="button">Logout</button>
-        </a>
     </div>
 </body>
 </html>

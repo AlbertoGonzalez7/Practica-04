@@ -1,7 +1,16 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
 session_start();
+
+if (isset($_SESSION['usuario'])) {
+    $usuari = $_SESSION['usuario'];
+} else {
+    $usuari = "Invitat";
+}
+
+include "navbar_view.php";
 ?>
+
 <!DOCTYPE html>
 <html lang="ca">
 
@@ -14,7 +23,7 @@ session_start();
 <body>
     <form method="POST" action="../modificar.php">
         <h2>
-            <p class="titol">Selecciona el camp a modificar</p> 
+            <p class="titol">Selecciona el camp a modificar</p><br>
             
             <!-- Camp per introduir l'ID -->
             <div class="c-formContainer">
@@ -31,7 +40,7 @@ session_start();
                 </label>
                 <span class="titol-chulo">Títol</span>
             </div>
-            <br>
+            
 
             <!-- Switch per Cos -->
             <div class="checkbox-wrapper-22">
@@ -45,7 +54,7 @@ session_start();
 
             <input type="submit" value="Seleccionar" class="boto">
 
-            <br><br>
+            <br>
             <a href="../index_usuari.php">
                 <button type="button" class="tornar" role="button">Anar enrere</button>
             </a>

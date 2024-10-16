@@ -1,7 +1,17 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+
 session_start();
+
+if (isset($_SESSION['usuario'])) {
+    $usuari = $_SESSION['usuario'];
+} else {
+    $usuari = "Invitat";
+}
+
+include "navbar_view.php";
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +31,7 @@ session_start();
         <div class="input-container ic1">
           <input name="id" class="input" type="text" placeholder=" " value="<?php echo isset($_SESSION['id']) ? htmlspecialchars($_SESSION['id']) : ''; ?>" />
           <div class="cut"></div>
-          <label for="id" class="placeholder">ID</label>
+          <label for="id" class="placeholder"></label>
         </div>
           <br>
           <input type="submit" value="Buscar" class="insertar" name="buscar">

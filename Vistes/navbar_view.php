@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_SESSION['usuario'])) {
     $usuari = $_SESSION['usuario'];
 } else {
@@ -24,15 +25,31 @@ if (isset($_SESSION['usuario'])) {
       <span class="navbar-toggler-icon"></span>
     </button>
 
-
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       </ul>
 
       <!-- El formulario de logout alineado a la derecha -->
-      <form action="Login/logout.php" method="POST" class="d-flex ms-auto" role="search">
+      <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="d-flex ms-auto" role="search">
+        <input type="hidden" name="logout" value="1">
         <button class="btn btn-outline-success" type="submit">Logout</button>
       </form>
+
+      <?php
+      // Si se ha enviado el formulario de logout
+      if (isset($_POST['logout'])) {
+          // Redirigir dependiendo de la página actual
+          $current_page = $_SERVER['SCRIPT_NAME']; // Obtener la ruta del archivo actual
+          if (strpos($current_page, 'Vistes/') !== false) {
+              // Si estamos en una página dentro de la carpeta 'Vistes'
+              header('Location: ../Login/logout.php'); // Ajusta la ruta hacia atrás
+          } else {
+              // Para cualquier otra página
+              header('Location: Login/logout.php');
+          }
+          exit; // Asegúrate de salir después de la redirección
+      }
+      ?>
     </div>
   </div>
 </nav>

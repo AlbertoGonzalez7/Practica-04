@@ -1,4 +1,17 @@
 <?php
+# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+session_start();
+
+if (isset($_SESSION['usuario'])) {
+    $usuari = $_SESSION['usuario'];
+} else {
+    $usuari = "Invitat";
+}
+
+include "Vistes/navbar_view.php";
+?>
+
+<?php
 session_start();
 # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
 require_once "Database/connexio.php";
@@ -73,7 +86,7 @@ if ($id && $field) {
                   </form>";
 
             // Botó per tornar enrere
-            echo "<a href='index_usuari.php'>
+            echo "<a href='index_usuari.php'><br>
                     <button class='boto' role='button'>Tornar enrere</button>
                   </a>";
         }

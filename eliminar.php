@@ -1,6 +1,20 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+
 session_start();
+
+if (isset($_SESSION['usuario'])) {
+    $usuari = $_SESSION['usuario'];
+} else {
+    $usuari = "Invitat";
+}
+
+include "Vistes/navbar_view.php";
+?>
+
+<?php
+# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+
 // Conexió per la base de dades:
 require_once "Database/connexio.php";
 $connexio = new PDO("mysql:host=$db_host; dbname=$db_nom", $db_usuari, $db_password);
@@ -37,7 +51,7 @@ if (isset($_POST['buscar']) && $id) {
     if ($select->rowCount() > 0) {
         // Mostrem l'article
         $article = $select->fetch();
-        echo "<div class='table-wrapper'>
+        echo "<br><br><br><br><div class='table-wrapper'>
                 <table class='fl-table'>
                     <tr><th>ID</th><th>Títol</th><th>Cos</th></tr>
                     <tr>
@@ -51,9 +65,9 @@ if (isset($_POST['buscar']) && $id) {
         // Botons per eliminar o tornar enrere
         echo "<form method='POST' action='eliminar.php'>
                 <input type='hidden' name='id' value='{$article['ID']}' />
-                <input type='submit' value='Eliminar' class='tornar' name='eliminar'>
+                <input type='submit' value='Eliminar' class='tornar' name='eliminar'><br><br>
               </form>
-                <a href='eliminar.php'>
+                <a href='Vistes/eliminar.php'>
                 <button class='tornar' role='button'>Tornar enrere</button>
                 </a>";
 
@@ -70,9 +84,9 @@ if (isset($_POST['buscar']) && $id) {
 if (isset($_POST['eliminar']) && $id) {
     $del = $connexio->prepare('DELETE FROM articles WHERE id = ?');
     $del->execute([$id]);
-    echo "<p class='titol'>Article eliminat correctament</p>";
+    echo "<p class='titol'>Article eliminat correctament</p><br>";
     echo "<a href='index_usuari.php'>
-          <button class='tornar' role='button'>Tornar enrere</button>
+          <button class='tornar' role='button'>Tornar</button>
           </a>";
 }
 //Estils:

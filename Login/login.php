@@ -91,6 +91,11 @@ session_start();
             <input type="submit" value="Registre" class="insertar" name="registrar">
         </form>
 
+
+        <a href='../index.php'><br>
+          <button class='tornar' role='button'>Tornar</button>
+        </a>;
+    
         <!-- Mensajes de sesión -->
         <?php
         if (isset($_SESSION['missatge_exit'])) {
