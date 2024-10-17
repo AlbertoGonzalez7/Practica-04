@@ -5,6 +5,7 @@ if (isset($_SESSION['usuari'])) {
 } else {
     $usuari = "Invitat";
 }
+
 ?>
 
 <!DOCTYPE html>

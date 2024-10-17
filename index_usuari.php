@@ -1,13 +1,14 @@
 <?php
 
+include 'verificar_sessio.php';
+include "Vistes/navbar_view.php";
+
 if (isset($_SESSION['usuari'])) {
     $usuari = $_SESSION['usuari'];
 } else {
     $usuari = "Invitat";
 }
 
-include "Vistes/navbar_view.php";
-include 'verificar_sessio.php';
 ?>
 
 <!DOCTYPE html>

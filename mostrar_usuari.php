@@ -1,6 +1,7 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
-session_start();
+include 'verificar_sessio.php';
+include "Vistes/navbar_view.php";
 
 if (isset($_SESSION['usuari'])) {
     $usuari = $_SESSION['usuari'];
@@ -8,8 +9,6 @@ if (isset($_SESSION['usuari'])) {
     $usuari = "Invitat";
 }
 
-include "Vistes/navbar_view.php";
-include 'verificar_sessio.php';
 ?>
 
 <?php 

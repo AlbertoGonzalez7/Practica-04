@@ -1,5 +1,7 @@
 <?php
-session_start();
+
+include '../verificar_sessio.php';
+include "navbar_view.php";
 
 if (isset($_SESSION['usuari'])) {
     $usuari = $_SESSION['usuari'];
@@ -7,8 +9,6 @@ if (isset($_SESSION['usuari'])) {
     $usuari = "Invitat";
 }
 
-include "navbar_view.php";
-include 'verificar_sessio.php';
 
 ?>
 
@@ -19,7 +19,6 @@ include 'verificar_sessio.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link rel="stylesheet" type="text/css" href="../CSS/estil_formulari.css">
-    <title>Document</title>
 </head>
 <body>   
     <form method="POST" action="../insertar.php">
