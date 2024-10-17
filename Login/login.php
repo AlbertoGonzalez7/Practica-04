@@ -80,7 +80,7 @@ if (!isset($_POST['form_type'])) {
         <?php endif; ?>
 
         <a href='../index.php'><br>
-          <button class='tornar' role='button'>Tornar</button>
+          <button class='tornar_login' role='button'>Tornar</button>
         </a>
 
         <!-- Mensajes de sesión -->

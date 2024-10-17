@@ -174,9 +174,6 @@ function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) 
 <body>
     <p class="titol">Taula d'articles</p><br>
     
-    <a href='index_usuari.php'>
-        <button class="tornar" role="button">Anar enrere</button><br>
-    </a>
 
     <br>
     
@@ -197,5 +194,12 @@ function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) 
         </select>
 
     </div>
+
+        <div>
+            <a href="index_usuari.php">
+                <button type="button" class="tornar" role="button">Anar enrere</button>
+            </a>
+        </div>
+        
 </body>
 </html>

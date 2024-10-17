@@ -67,15 +67,15 @@ if (isset($_POST['buscar']) && $id) {
         // Botons per eliminar o tornar enrere
         echo "<form method='POST' action='eliminar.php'>
                 <input type='hidden' name='id' value='{$article['ID']}' />
-                <input type='submit' value='Eliminar' class='tornar' name='eliminar'><br><br>
+                <input type='submit' value='Eliminar' class='boto' name='eliminar'><br><br>
               </form>
                 <a href='Vistes/eliminar.php'>
-                <button class='tornar' role='button'>Tornar enrere</button>
+                <button class='tornar' role='button'>Anar enrere</button>
                 </a>";
     } else {
         echo "<p class='titol'>L'article no ha sigut trobat</p>
                 <a href='index_usuari.php'>
-                <button class='tornar' role='button'>Tornar enrere</button>
+                <button class='tornar' role='button'>Anar enrere</button>
                 </a>";
     }
 }
@@ -92,12 +92,12 @@ if (isset($_POST['eliminar']) && $id) {
         $del->execute([$id]);
         echo "<p class='titol'>Article eliminat correctament</p><br>";
         echo "<a href='index_usuari.php'>
-              <button class='tornar' role='button'>Tornar</button>
+              <button class='tornar' role='button'>Anar enrere</button>
               </a>";
     } else {
         echo "<p class='titol'>No pots eliminar aquest article, no ets el propietari.</p><br>";
         echo "<a href='index_usuari.php'>
-              <button class='tornar' role='button'>Tornar</button>
+              <button class='tornar' role='button'>Anar enrere</button>
               </a>";
     }
 }

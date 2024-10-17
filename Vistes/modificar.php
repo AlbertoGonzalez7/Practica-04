@@ -1,7 +1,8 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
-session_start();
 
+include '../verificar_sessio.php';
+include "navbar_view.php";
 
 if (isset($_SESSION['usuari'])) {
     $usuari = $_SESSION['usuari'];
@@ -9,8 +10,6 @@ if (isset($_SESSION['usuari'])) {
     $usuari = "Invitat";
 }
 
-include "navbar_view.php";
-include '../verificar_sessio.php';
 ?>
 
 <!DOCTYPE html>
@@ -57,9 +56,6 @@ include '../verificar_sessio.php';
             <input type="submit" value="Seleccionar" class="boto">
 
             <br>
-            <a href="../index_usuari.php">
-                <button type="button" class="tornar" role="button">Anar enrere</button>
-            </a>
 
             <?php
 
@@ -78,6 +74,13 @@ include '../verificar_sessio.php';
 
         </h2>
     </form>
+
+        <div>
+            <a href="../index_usuari.php">
+                <button type="button" class="tornar" role="button">Anar enrere</button>
+            </a>
+        </div>
+
 </body>
 
 </html>

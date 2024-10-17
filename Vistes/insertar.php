@@ -10,6 +10,7 @@ if (isset($_SESSION['usuari'])) {
 }
 
 
+
 ?>
 
 <!DOCTYPE html>
@@ -39,9 +40,6 @@ if (isset($_SESSION['usuari'])) {
             <br>
             <input type="submit" value="Insertar" class="insertar" name="insert">
             <br><br>
-            <a href="../index_usuari.php">
-                <button type="button" class="tornar" role="button">Anar enrere</button>
-            </a>
 
             <?php
             // Verifica si existeix un missatge d'èxit per mostrar:
@@ -59,6 +57,12 @@ if (isset($_SESSION['usuari'])) {
 
         </div>
     </form>
+
+        <div>
+            <a href="../index_usuari.php">
+                <button type="button" class="tornar" role="button">Anar enrere</button>
+            </a>
+        </div>
 
 </body>
 </html>

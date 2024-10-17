@@ -81,14 +81,14 @@ if ($id && $field) {
                     <input type='hidden' name='id' value='{$article['ID']}' />
                     <input type='hidden' name='field' value='{$field}' />
                     
-                    <label class='titol-chulo' for='new_value'>Nou " . ($field === 'titol' ? 'Títol' : 'Cos') . " </label><br><br>
+                    <label class='titol-chulo' for='new_value'>Nou " . ($field === 'titol' ? 'Títol' : 'Cos') . " </label><br>
                     <textarea name='new_value' class='textarea' required></textarea><br><br>
                     <button type='submit' class='boto'>Modificar</button>
                   </form>";
 
             // Botó per tornar enrere
-            echo "<a href='index_usuari.php'><br>
-                    <button class='boto' role='button'>Tornar enrere</button>
+            echo "<a href='index_usuari.php'>
+                    <button class='tornar' role='button'>Anar enrere</button>
                   </a>";
         }
         // Si no es troba l'article:
