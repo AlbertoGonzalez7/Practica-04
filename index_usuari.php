@@ -1,13 +1,13 @@
 <?php
-session_start();
 
-if (isset($_SESSION['usuario'])) {
-    $usuari = $_SESSION['usuario'];
+if (isset($_SESSION['usuari'])) {
+    $usuari = $_SESSION['usuari'];
 } else {
     $usuari = "Invitat";
 }
 
 include "Vistes/navbar_view.php";
+include 'verificar_sessio.php';
 ?>
 
 <!DOCTYPE html>

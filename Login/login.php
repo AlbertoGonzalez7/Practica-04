@@ -1,6 +1,13 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
 session_start();
+
+// Establecer la vista predeterminada al cargar la página (por defecto 'login')
+if (!isset($_POST['form_type'])) {
+    $form_type = 'login';
+} else {
+    $form_type = $_POST['form_type'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,92 +17,72 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../CSS/estil_formulari.css">
     <title>Document</title>
-    <script>
-        function toggleForm(type) {
-            if (type === 'login') {
-                document.getElementById('login-form').style.display = 'block';
-                document.getElementById('register-form').style.display = 'none';
-            } else {
-                document.getElementById('login-form').style.display = 'none';
-                document.getElementById('register-form').style.display = 'block';
-            }
-        }
-
-        function validatePassword() {
-            const password = document.getElementById('register-pass').value;
-            const confirmPass = document.getElementById('confirm-pass').value;
-            const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-            if (!regex.test(password)) {
-                alert("La contrasenya ha de tenir almenys 8 caràcters, una majúscula, un número i un símbol.");
-                return false;
-            }
-
-            if (password !== confirmPass) {
-                alert("Les contrasenyes no coincideixen.");
-                return false;
-            }
-
-            return true;
-        }
-    </script>
 </head>
 <body>   
     <div class="form">
         <div class="title">Login / Registre</div>
         <div class="subtitle">Selecciona una opció</div><br>
 
-
         <div>
-            <button class="button-90" type="button" onclick="toggleForm('login')">Login</button>
-            <button class="button-90" type="button" onclick="toggleForm('register')">Registre</button>
+            <form method="POST">
+                <input type="hidden" name="form_type" value="login">
+                <button class="button-90" type="submit">Login</button>
+                <br>
+                <br>
+            </form>
+            <form method="POST">
+                <input type="hidden" name="form_type" value="register">
+                <button class="button-90" type="submit">Registre</button>
+            </form>
         </div>
 
         <!-- Formulario de login -->
-        <form id="login-form" method="POST" action="login_controlador.php" style="display:block;">
-        <input type="hidden" name="accion" value="login">
+        <?php if ($form_type === 'login'): ?>
+        <form id="login-form" method="POST" action="login_controlador.php">
+            <input type="hidden" name="accion" value="login">
             <div class="input-container ic2">
-                <input name="usuari" class="input" type="text" placeholder=" " required />
+                <input name="usuari" class="input" type="text" placeholder=" " value="<?php echo isset($_SESSION['usuari']) ? htmlspecialchars($_SESSION['usuari']) : ''; ?>"/>
                 <div class="cut"></div>
                 <label for="usuari" class="placeholder">Nom d'usuari</label>
             </div>
             <div class="input-container ic2">
-                <input name="pass" class="input" type="password" placeholder=" " required />
+                <input name="pass" class="input" type="password" placeholder=" " />
                 <div class="cut cut-short"></div>
                 <label for="pass" class="placeholder">Contrasenya</label>
             </div>
             <br>
             <input type="submit" value="Login" class="insertar" name="entrar">
         </form>
+        <?php endif; ?>
 
         <!-- Formulario de registro -->
-        <form id="register-form" method="POST" action="login_controlador.php" style="display:none;" onsubmit="return validatePassword()">
-        <input type="hidden" name="accion" value="registro">    
-        <div class="input-container ic2">
-                <input name="usuari" class="input" type="text" placeholder=" " required />
+        <?php if ($form_type === 'register'): ?>
+        <form id="register-form" method="POST" action="login_controlador.php" onsubmit="return validatePassword()">
+            <input type="hidden" name="accion" value="registro">    
+            <div class="input-container ic2">
+                <input name="usuari_reg" class="input" type="text" placeholder=" " value="<?php echo isset($_SESSION['usuari_reg']) ? htmlspecialchars($_SESSION['usuari_reg']) : ''; ?>"/>
                 <div class="cut"></div>
-                <label for="usuari" class="placeholder">Nom d'usuari</label>
+                <label for="usuari_reg" class="placeholder">Nom d'usuari</label>
             </div>
             <div class="input-container ic2">
-                <input id="register-pass" name="pass" class="input" type="password" placeholder=" " required />
+                <input id="register-pass" name="pass" class="input" type="password" placeholder=" "/>
                 <div class="cut cut-short"></div>
                 <label for="pass" class="placeholder">Contrasenya</label>
             </div>
             <div class="input-container ic2">
-                <input id="confirm-pass" name="confirm_pass" class="input" type="password" placeholder=" " required />
+                <input id="confirm-pass" name="confirm_pass" class="input" type="password" placeholder=" "/>
                 <div class="cut cut-short"></div>
                 <label for="confirm-pass" class="placeholder">Confirma la contrasenya</label>
             </div>
-
             <br>
             <input type="submit" value="Registre" class="insertar" name="registrar">
         </form>
-
+        <?php endif; ?>
 
         <a href='../index.php'><br>
           <button class='tornar' role='button'>Tornar</button>
-        </a>;
-    
+        </a>
+
         <!-- Mensajes de sesión -->
         <?php
         if (isset($_SESSION['missatge_exit'])) {

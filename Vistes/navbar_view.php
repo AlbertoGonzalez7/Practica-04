@@ -1,7 +1,7 @@
 <?php
 
-if (isset($_SESSION['usuario'])) {
-    $usuari = $_SESSION['usuario'];
+if (isset($_SESSION['usuari'])) {
+    $usuari = $_SESSION['usuari'];
 } else {
     $usuari = "Invitat";
 }

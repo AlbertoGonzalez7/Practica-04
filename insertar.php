@@ -1,7 +1,7 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
-session_start();
 require_once "Database/connexio.php";
+include 'verificar_sessio.php';
 
 $connexio = new PDO("mysql:host=$db_host; dbname=$db_nom", $db_usuari, $db_password); 
 

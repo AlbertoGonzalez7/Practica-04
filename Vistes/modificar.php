@@ -1,9 +1,10 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
 session_start();
+include '../verificar_sessio.php';
 
-if (isset($_SESSION['usuario'])) {
-    $usuari = $_SESSION['usuario'];
+if (isset($_SESSION['usuari'])) {
+    $usuari = $_SESSION['usuari'];
 } else {
     $usuari = "Invitat";
 }

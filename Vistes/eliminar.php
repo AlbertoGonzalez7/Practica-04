@@ -4,12 +4,13 @@
 session_start();
 
 if (isset($_SESSION['usuario'])) {
-    $usuari = $_SESSION['usuario'];
+    $usuari = $_SESSION['usuari'];
 } else {
     $usuari = "Invitat";
 }
 
 include "navbar_view.php";
+include 'verificar_sessio.php';
 ?>
 
 <!DOCTYPE html>
