@@ -1,16 +1,22 @@
+<?php
+
+include "Login/missatge_logout.php";
+
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8" />
-    <title>Pràctica 2 - Connexions PDO</title>
+    <title>Pràctica 4</title>
     <link rel="stylesheet" type="text/css" href="CSS/estils.css">
 </head>
 
 <body>
     <form method="POST" action="../Database/connexio.php">
         <h2>
-            <p class="titol">Selecciona una opció</p>
+            <p class="titol">Selecciona una opció</p><br>
 
             <input type="submit" value="Mostrar articles" class="boto" name="select" formaction="mostrar.php">
         </h2>
@@ -20,6 +26,8 @@
         <button class="login" role="button">Login/Sign up</button>
     </a>
 
+
 </body>
+
 
 </html>

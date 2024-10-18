@@ -39,6 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['usuari'] = $user['usuari'];
                 $_SESSION['user_id'] = $user['id']; // Guardar el id del usuario en la sesión
                 $_SESSION['start_time'] = time(); // Guardar la hora de inicio de sesión
+
+                setcookie('login_exitos', '1', time() + 60, '/');
+
                 header("Location: ../index_usuari.php");
                 exit();
             } else {

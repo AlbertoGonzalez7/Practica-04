@@ -1,6 +1,8 @@
 <?php
+
 session_start();
 // Duración máxima de la sesión en segundos (40 minutos)
+
 $max_duracion_sesion = 40 * 60; // 40 minutos * 60 segundos
 
 // Verificamos si el usuario está logueado y si el tiempo ha expirado

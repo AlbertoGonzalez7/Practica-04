@@ -47,6 +47,7 @@ if (!empty($errors)) {
 if (isset($_POST['buscar']) && $id) {
     $select = $connexio->prepare('SELECT * FROM articles WHERE id = ? AND usuari_id = ?');
     $select->execute([$id, $user_id]);
+    unset($_SESSION['id']);
 
     if ($select->rowCount() > 0) {
         // Mostrem l'article
@@ -85,7 +86,6 @@ if (isset($_POST['eliminar']) && $id) {
     // Verificar que el artículo pertenece al usuario
     $checkOwnership = $connexio->prepare('SELECT * FROM articles WHERE id = ? AND usuari_id = ?');
     $checkOwnership->execute([$id, $user_id]);
-    // 
 
     if ($checkOwnership->rowCount() > 0) {
         // Proceder a eliminar
