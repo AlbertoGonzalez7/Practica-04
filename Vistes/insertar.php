@@ -44,13 +44,13 @@ if (isset($_SESSION['usuari'])) {
             <?php
             // Verifica si existeix un missatge d'èxit per mostrar:
             if (isset($_SESSION['missatge_exit'])) {
-                echo "<p style='color: green;'>" . ($_SESSION['missatge_exit']) . "</p>";
+                echo "<p style='color: green; font-family: \"Calligraffitti\", cursive;'>" . ($_SESSION['missatge_exit']) . "</p>";
                 unset($_SESSION['missatge_exit']); // Eliminar missatge després de mostrar-lo
             }
 
             // Verifica si existeix un missatge d'error per mostrar:
             else if (isset($_SESSION['missatge'])) {
-                echo "<p style='color: red;'>" . ($_SESSION['missatge']) . "</p>";
+                echo "<p style='color: red; font-family: \"Calligraffitti\", cursive;'>" . ($_SESSION['missatge']) . "</p>";
                 unset($_SESSION['missatge']); // Eliminar missatge després de mostrar-lo
             }
             ?>

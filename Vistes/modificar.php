@@ -53,7 +53,7 @@ if (isset($_SESSION['usuari'])) {
             </div>
             <br>
 
-            <input type="submit" value="Seleccionar" class="boto">
+            <input type="submit" value="Seleccionar" class="boto"><br>
 
             <br>
 
@@ -61,12 +61,12 @@ if (isset($_SESSION['usuari'])) {
 
             // Verifica si existeix un missatge d'èxit per mostrar:
             if (isset($_SESSION['missatge_exit'])) {
-                echo "<p style='color: #2ee20e;'>" . htmlspecialchars($_SESSION['missatge_exit']) . "</p>"; // Missatge d'èixt.
+                echo "<p style='color: #2ee20e; font-family: \"Calligraffitti\", cursive;'>" . htmlspecialchars($_SESSION['missatge_exit']) . "</p>"; // Missatge d'èixt.
                 unset($_SESSION['missatge_exit']); // Eliminar missatge després de mostrar-lo
             }
             // Verifica si existeix un missatge d'error per mostrar:
             else if (isset($_SESSION['missatge'])) {
-                echo "<p>" . htmlspecialchars($_SESSION['missatge']) . "</p>";
+                echo "<p style='color: red; font-family: \"Calligraffitti\", cursive;'>" . htmlspecialchars($_SESSION['missatge']) . "</p>";
                 unset($_SESSION['missatge']); // Eliminar missatge després de mostrar-lo
             }
 

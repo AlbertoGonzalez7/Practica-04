@@ -133,9 +133,9 @@ table {
 
 .tornar {
   position: fixed; /* Fija la posición del botón */
-  top: 70px; /* Espaciado desde la parte superior (ajusta según necesites) */
+  top: 80px; /* Espaciado desde la parte superior (ajusta según necesites) */
   left: 10px; /* Espaciado desde la izquierda (ajusta según necesites) */
-  background: #4545f3;
+  background: #4545f3; 
   border-radius: 999px;
   box-shadow: #4545f3 0 10px 20px -10px;
   box-sizing: border-box;

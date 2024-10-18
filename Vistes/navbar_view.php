@@ -20,6 +20,13 @@ if (isset($_SESSION['usuari'])) {
 <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <!-- Texto de bienvenida -->
+    <nav class="navbar bg-body-tertiary">
+  <div class="container">
+    <a class="navbar-brand">
+      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Logout" width="30" height="30">
+    </a>
+  </div>
+  </nav>
     <a class="navbar-brand">Benvingut <?php echo htmlspecialchars($usuari); ?></a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">

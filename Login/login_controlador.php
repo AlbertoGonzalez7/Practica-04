@@ -7,6 +7,7 @@ $connexio = new PDO("mysql:host=$db_host; dbname=$db_nom", $db_usuari, $db_passw
 $errors = [];
 $usuari = $password = $confirm_password = ""; // Inicializamos las variables
 
+
 // Verificamos si se ha enviado el formulario:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $accion = $_POST['accion'];

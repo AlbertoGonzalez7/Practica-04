@@ -8,6 +8,7 @@ if (!isset($_POST['form_type'])) {
 } else {
     $form_type = $_POST['form_type'];
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

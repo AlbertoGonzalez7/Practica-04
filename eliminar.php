@@ -85,6 +85,7 @@ if (isset($_POST['eliminar']) && $id) {
     // Verificar que el artículo pertenece al usuario
     $checkOwnership = $connexio->prepare('SELECT * FROM articles WHERE id = ? AND usuari_id = ?');
     $checkOwnership->execute([$id, $user_id]);
+    // 
 
     if ($checkOwnership->rowCount() > 0) {
         // Proceder a eliminar

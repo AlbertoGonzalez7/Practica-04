@@ -1,5 +1,5 @@
 <?php
-# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+session_start();
 include 'verificar_sessio.php';
 include "Vistes/navbar_view.php";
 
@@ -9,12 +9,6 @@ if (isset($_SESSION['usuari'])) {
     $usuari = "Invitat";
 }
 
-
-?>
-
-<?php
-session_start();
-# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
 require_once "Database/connexio.php";
 $connexio = new PDO("mysql:host=$db_host; dbname=$db_nom", $db_usuari, $db_password);
 
@@ -39,6 +33,15 @@ if (empty($id)) {
     }
 }
 
+// Si el camp new_value està buit, afegim error
+if (isset($_POST['new_value']) && empty(trim($_POST['new_value']))) {
+    if ($field === 'titol') {
+        $errors[] = "El camp 'Títol' és obligatori."; // Missatge per títol
+    } else if ($field === 'cos') {
+        $errors[] = "El camp 'Cos' és obligatori."; // Missatge per cos
+    }
+}
+
 // Si hi ha errors, els guardem i redirigim a vista.
 if (!empty($errors)) {
     $_SESSION['missatge'] = implode("<br>", $errors);
@@ -50,6 +53,7 @@ if (!empty($errors)) {
 if ($id && $field) {
     $select = $connexio->prepare('SELECT * FROM articles WHERE id = ? AND usuari_id = ?');
     $select->execute([$id, $user_id]);
+    unset($_SESSION['id']);
 
     if ($select->rowCount() > 0) {
         // Mostrar l'article
@@ -82,7 +86,7 @@ if ($id && $field) {
                     <input type='hidden' name='field' value='{$field}' />
                     
                     <label class='titol-chulo' for='new_value'>Nou " . ($field === 'titol' ? 'Títol' : 'Cos') . " </label><br>
-                    <textarea name='new_value' class='textarea' required></textarea><br><br>
+                    <textarea name='new_value' class='textarea'></textarea><br><br>
                     <button type='submit' class='boto'>Modificar</button>
                   </form>";
 
