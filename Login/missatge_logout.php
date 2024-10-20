@@ -1,5 +1,7 @@
-
 <!DOCTYPE html>
+
+<!-- # Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions -->
+
 <html lang="ca">
 <head>
     <meta charset="utf-8">
@@ -8,13 +10,13 @@
 </head>
 <body>
 
-<!-- Mostrar mensaje de alerta solo si la cookie está presente -->
+<!-- Mostrar missatge d'alerta si esta la cookie activa -->
     <?php if (isset($_COOKIE['logout_exitos'])): ?>
         <div class="alert alert-success d-flex align-items-center" role="alert">
             T'has desloguejat amb èxit
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <!-- Eliminar la cookie para que no vuelva a mostrar el mensaje -->
+        <!-- Eliminem la cookie un cop mostrat el missatghe -->
         <?php setcookie('logout_exitos', '', time() - 3600, '/'); ?>
     <?php endif; ?>
 

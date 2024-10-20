@@ -1,5 +1,6 @@
 <?php
-# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
+
 include 'verificar_sessio.php';
 include 'Vistes/navbar_view.php';
 
@@ -14,7 +15,6 @@ if (isset($_SESSION['usuari'])) {
 ?>
 
 <?php
-# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
 
 // Conexió per la base de dades:
 require_once "Database/connexio.php";
@@ -83,12 +83,12 @@ if (isset($_POST['buscar']) && $id) {
 
 // Si es fa clic en el botó d'eliminar
 if (isset($_POST['eliminar']) && $id) {
-    // Verificar que el artículo pertenece al usuario
+    // Verifiquem que l'article és de l'usuari
     $checkOwnership = $connexio->prepare('SELECT * FROM articles WHERE id = ? AND usuari_id = ?');
     $checkOwnership->execute([$id, $user_id]);
 
     if ($checkOwnership->rowCount() > 0) {
-        // Proceder a eliminar
+        // L'eliminem
         $del = $connexio->prepare('DELETE FROM articles WHERE id = ?');
         $del->execute([$id]);
         echo "<p class='titol'>Article eliminat correctament</p><br>";

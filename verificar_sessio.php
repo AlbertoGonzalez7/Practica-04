@@ -1,39 +1,41 @@
 <?php
+# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
 
 session_start();
-// Duración máxima de la sesión en segundos (40 minutos)
 
-$max_duracion_sesion = 40 * 60; // 40 minutos * 60 segundos
+// Duració màxima de la sessió en segons (40 minuts)
+$max_duracio_sessio = 40 * 60;
 
-// Verificamos si el usuario está logueado y si el tiempo ha expirado
+// Verifiquem si l'usuari està loguejat i si el temps ha expirat
 if (isset($_SESSION['usuari'])) {
 
-    // Verificamos si el tiempo de inicio de la sesión está definido
+    // Verifiquem si el temps d'inici de la sessió està definit
     if (!isset($_SESSION['start_time'])) {
-        $_SESSION['start_time'] = time(); // Inicializamos el tiempo si no está
+        $_SESSION['start_time'] = time(); // Inicialitzem el temps si no ho està
     }
 
-    // Calculamos el tiempo transcurrido desde el inicio de la sesión
-    if (time() - $_SESSION['start_time'] > $max_duracion_sesion) {
-        // Si ha pasado más de 40 minutos, destruimos la sesión y redirigimos   
 
-        $current_page = $_SERVER['SCRIPT_NAME']; // Obtener la ruta del archivo actual
+    // Calculem el temps transcorregut des de l'inici de la sessió
+    if (time() - $_SESSION['start_time'] > $max_duracio_sessio) {
+
+        // Si han passat més de 40 minuts, destruïm la sessió i redirigim
+        $current_page = $_SERVER['SCRIPT_NAME'];
         if (strpos($current_page, 'Vistes/') !== false) {
-            // Si estamos en una página dentro de la carpeta 'Vistes'
-            header('Location: ../Login/logout.php'); // Ajusta la ruta hacia atrás
+            // Si estem en una pàgina dins la carpeta 'Vistes'
+            header('Location: ../Login/logout.php');
         } else {
-            // Para cualquier otra página
+            // Per a qualsevol altra pàgina
             header('Location: Login/logout.php');
         }
         exit;
 
     } else {
-        // Si la sesión aún es válida, actualizamos el tiempo de actividad
+        // Si la sessió encara és vàlida, actualitzem el temps d'activitat
         $_SESSION['start_time'] = time();
     }
 
 } else {
-    // Si el usuario no está logueado, lo redirigimos a la página de login
+    // Si l'usuari no està loguejat, el redirigim a la pàgina index.php
     header("Location: index.php");
     exit();
 }

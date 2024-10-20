@@ -1,17 +1,18 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+
 require_once "Database/connexio.php";
 include 'verificar_sessio.php';
 
 $connexio = new PDO("mysql:host=$db_host; dbname=$db_nom", $db_usuari, $db_password); 
 
 $errors = [];
-$titol = $cos = ""; // Inicializamos las variables
+$titol = $cos = "";
 
 // Verifiquem si s'ha enviat el formulari:
 if (isset($_POST['insert'])) {
-    $titol = trim($_POST['titol']); // Elimina espais en blanc
-    $cos = trim($_POST['cos']); // Elimina espais en blanc
+    $titol = trim($_POST['titol']);
+    $cos = trim($_POST['cos']);
 
     // Verifiquem que cap dels dos camps estigui buit, si ho estan mostrem error:
     if (empty($titol)) {
@@ -24,8 +25,8 @@ if (isset($_POST['insert'])) {
     // Si hi ha errors, els guardem:
     if (!empty($errors)) {
         $_SESSION['missatge'] = implode("<br>", $errors); // Missatges d'error separats per un salt de línea
-        $_SESSION['titol'] = $titol; // Guardem el valor de titol
-        $_SESSION['cos'] = $cos; // Guardem el valor de cos
+        $_SESSION['titol'] = $titol;
+        $_SESSION['cos'] = $cos;
     } else {
         // Verifiquem si ja existeix l'article
         $select = $connexio->prepare('SELECT * FROM articles WHERE titol = ? AND cos = ?');
@@ -38,27 +39,26 @@ if (isset($_POST['insert'])) {
                 $insert->execute([$titol, $cos, $usuari_id]);
             }
             
-            // Obtener el id del usuario de la sesión
-            $usuari_id = $_SESSION['user_id']; // Asegúrate de que 'user_id' esté en la sesión
+            $usuari_id = $_SESSION['user_id']; 
             
             insert($connexio, $titol, $cos, $usuari_id);
-            $_SESSION['missatge_exit'] = "Article insertat correctament";
+            $_SESSION['missatge_exit'] = "Article insertat correctament"; // Missatge d'èxit
             $_SESSION['titol'] = ""; // Netejem el valor de titol
             $_SESSION['cos'] = ""; // Netejem el valor de cos
         } else {
             // Si ja existeix l'article
             $_SESSION['missatge'] = "L'article introduit ja existeix.";
-            $_SESSION['titol'] = $titol; // Guardem el valor de titol
-            $_SESSION['cos'] = $cos; // Guardem el valor de cos
+            $_SESSION['titol'] = $titol;
+            $_SESSION['cos'] = $cos;
         }
     }
 
     // Redirigim a la vista per mostrar el resultat (error o èxit)
     header("Location: Vistes/insertar.php");
-    exit(); // Asegúrate de llamar a exit() después de redirigir
+    exit();
 }
 
-// Opcional: Limpiar las variables de sesión al cargar el formulario por primera vez
+// Netejem les variables
 if (!isset($_SESSION['titol'])) {
     $_SESSION['titol'] = "";
 }

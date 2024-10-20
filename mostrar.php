@@ -1,5 +1,5 @@
 <?php 
-# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
 require_once "Database/connexio.php";
 $connexio = new PDO("mysql:host=$db_host; dbname=$db_nom", $db_usuari, $db_password); 
 
@@ -75,46 +75,55 @@ function mostrarTaula($resultats){
 function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) {
     echo "<div class='pagination'>";
 
+    // Botó per anar a la primera pàgina
     if ($pagina_actual > 1) {
-        echo "<a href='?pagina=1&articles_per_pagina=$articles_per_pagina'>&laquo;</a>";  // Ir al inicio
+        echo "<a href='?pagina=1&articles_per_pagina=$articles_per_pagina'>&laquo;</a>";
     } else {
         echo "<a href='#' class='disabled'>&laquo;</a>";
     }
 
+    // Botó per anar a la pàgina anterior
     if ($pagina_actual > 1) {
-        echo "<a href='?pagina=" . ($pagina_actual - 1) . "&articles_per_pagina=$articles_per_pagina'>&lsaquo;</a>";  // Ir una página atrás
+        echo "<a href='?pagina=" . ($pagina_actual - 1) . "&articles_per_pagina=$articles_per_pagina'>&lsaquo;</a>";
     } else {
         echo "<a href='#' class='disabled'>&lsaquo;</a>";
     }
 
-    // Mostrar números de páginas
+    // Mostra el número de pàgines
     if ($total_pagines <= 7) {
         for ($i = 1; $i <= $total_pagines; $i++) {
-            if ($i == $pagina_actual) {
-                echo "<a class='active' href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>"; // Cambiar el color a verde si es la página actual
-            } else {
-                echo "<a href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>";
-            }
-        }
-    } else {
-        echo "<a href='?pagina=1&articles_per_pagina=$articles_per_pagina' class='" . ($pagina_actual == 1 ? "active" : "") . "'>1</a>";
-
-        if ($pagina_actual > 4) {
-            echo "<span>...</span>";
-        }
-
-        for ($i = max(2, $pagina_actual - 2); $i <= min($pagina_actual + 2, $total_pagines - 1); $i++) {
             if ($i == $pagina_actual) {
                 echo "<a class='active' href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>";
             } else {
                 echo "<a href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>";
             }
         }
+    } else {
+        // Si hi ha moltes pàgines, mostra el primer número de pàgina i l'últim,
+        echo "<a href='?pagina=1&articles_per_pagina=$articles_per_pagina' class='" . ($pagina_actual == 1 ? "active" : "") . "'>1</a>";
 
+        // Si la pàgina actual és major que 4, mostra punts suspensius
+        if ($pagina_actual > 4) {
+            echo "<span>...</span>";
+        }
+
+        // Mostra les pàgines depenent de la pagina actual, dues abans i dues després
+        for ($i = max(2, $pagina_actual - 2); $i <= min($pagina_actual + 2, $total_pagines - 1); $i++) {
+            // Si és la pàgina actual, color verd
+            if ($i == $pagina_actual) {
+                echo "<a class='active' href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>";
+            } else {
+                // Mostra les altres pàgines
+                echo "<a href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>";
+            }
+        }
+
+        // Si la pàgina actual està lluny del final, mostra punts suspensius
         if ($pagina_actual < $total_pagines - 3) {
             echo "<span>...</span>";
         }
 
+        // Mostra l'última pàgina, color verd si es l'actual
         if ($pagina_actual != $total_pagines) {
             echo "<a href='?pagina=$total_pagines&articles_per_pagina=$articles_per_pagina'>$total_pagines</a>";
         } else {
@@ -122,14 +131,16 @@ function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) 
         }
     }
 
+    // Botó per anar a la pàgina següent
     if ($pagina_actual < $total_pagines) {
-        echo "<a href='?pagina=" . ($pagina_actual + 1) . "&articles_per_pagina=$articles_per_pagina'>&rsaquo;</a>";  // Ir una página adelante
+        echo "<a href='?pagina=" . ($pagina_actual + 1) . "&articles_per_pagina=$articles_per_pagina'>&rsaquo;</a>";
     } else {
         echo "<a href='#' class='disabled'>&rsaquo;</a>";
     }
 
+    // Botó per anar a l'última pàgina
     if ($pagina_actual < $total_pagines) {
-        echo "<a href='?pagina=$total_pagines&articles_per_pagina=$articles_per_pagina'>&raquo;</a>";  // Ir al final
+        echo "<a href='?pagina=$total_pagines&articles_per_pagina=$articles_per_pagina'>&raquo;</a>";
     } else {
         echo "<a href='#' class='disabled'>&raquo;</a>";
     }

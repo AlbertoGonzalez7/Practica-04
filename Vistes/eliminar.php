@@ -1,11 +1,11 @@
 <?php
-# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
 
 include '../verificar_sessio.php';
 include "navbar_view.php";
 
 
-if (isset($_SESSION['usuario'])) {
+if (isset($_SESSION['usuari'])) {
     $usuari = $_SESSION['usuari'];
 } else {
     $usuari = "Invitat";

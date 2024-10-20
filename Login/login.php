@@ -1,5 +1,6 @@
 <?php
-# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
+
 session_start();
 
 // Establecer la vista predeterminada al cargar la página (por defecto 'login')
@@ -37,7 +38,7 @@ if (!isset($_POST['form_type'])) {
             </form>
         </div>
 
-        <!-- Formulario de login -->
+        <!-- Formulari de login -->
         <?php if ($form_type === 'login'): ?>
         <form id="login-form" method="POST" action="login_controlador.php">
             <input type="hidden" name="accion" value="login">
@@ -56,7 +57,7 @@ if (!isset($_POST['form_type'])) {
         </form>
         <?php endif; ?>
 
-        <!-- Formulario de registro -->
+        <!-- Formulari de registre -->
         <?php if ($form_type === 'register'): ?>
         <form id="register-form" method="POST" action="login_controlador.php" onsubmit="return validatePassword()">
             <input type="hidden" name="accion" value="registro">    

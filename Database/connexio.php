@@ -1,5 +1,5 @@
 <?php
-# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
 function connectarBD($db_host, $db_usuari, $db_password, $db_nom)
 {
     try {

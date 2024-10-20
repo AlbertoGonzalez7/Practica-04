@@ -1,4 +1,5 @@
 <?php
+# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
 
 if (isset($_SESSION['usuari'])) {
     $usuari = $_SESSION['usuari'];
@@ -19,7 +20,7 @@ if (isset($_SESSION['usuari'])) {
 
 <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <!-- Texto de bienvenida -->
+    <!-- Text de benvinguda -->
     <nav class="navbar bg-body-tertiary">
   <div class="container">
     <a class="navbar-brand">
@@ -37,25 +38,24 @@ if (isset($_SESSION['usuari'])) {
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       </ul>
 
-      <!-- El formulario de logout alineado a la derecha -->
+      <!-- Logout a la dreta -->
       <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="d-flex ms-auto" role="search">
         <input type="hidden" name="logout" value="1">
         <button class="btn btn-outline-success" type="submit">Logout</button>
       </form>
 
       <?php
-      // Si se ha enviado el formulario de logout
+      // Si se ha enviat el formulari de logout
       if (isset($_POST['logout'])) {
-          // Redirigir dependiendo de la página actual
-          $current_page = $_SERVER['SCRIPT_NAME']; // Obtener la ruta del archivo actual
+          $current_page = $_SERVER['SCRIPT_NAME'];
           if (strpos($current_page, 'Vistes/') !== false) {
-              // Si estamos en una página dentro de la carpeta 'Vistes'
-              header('Location: ../Login/logout.php'); // Ajusta la ruta hacia atrás
+              // Si estem a la carpeta "Vistes:"
+              header('Location: ../Login/logout.php');
           } else {
-              // Para cualquier otra página
+              // Qualsevol altra pàgina
               header('Location: Login/logout.php');
           }
-          exit; // Asegúrate de salir después de la redirección
+          exit;
       }
       ?>
     </div>

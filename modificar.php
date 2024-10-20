@@ -1,4 +1,6 @@
 <?php
+# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
+
 session_start();
 include 'verificar_sessio.php';
 include "Vistes/navbar_view.php";

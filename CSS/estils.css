@@ -1,4 +1,4 @@
-/* # Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO */
+/* # Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions */
 
 body {
     background: #6868AC;
@@ -132,9 +132,9 @@ table {
 }
 
 .tornar {
-  position: fixed; /* Fija la posición del botón */
-  top: 90px; /* Espaciado desde la parte superior (ajusta según necesites) */
-  left: 10px; /* Espaciado desde la izquierda (ajusta según necesites) */
+  position: fixed;
+  top: 90px;
+  left: 10px;
   background: #4545f3; 
   border-radius: 999px;
   box-shadow: #4545f3 0 10px 20px -10px;
@@ -372,24 +372,24 @@ table {
   /* Boto per posar ID a modificar.php */
 
   .boton-id {
-    background-color: #9b59b6; /* Color de fondo morado más claro */
-    color: white; /* Color del texto */
-    padding: 10px 5px; /* Espaciado interno */
-    border-radius: 20px; /* Bordes redondeados */
-    text-align: center; /* Centrar el texto */
-    cursor: text; /* Cambiar el cursor al pasar por encima */
-    display: inline-block; /* Para que se comporte como un botón */
-    margin-left: 10px; /* Espacio entre el campo ID y el botón */
-    position: relative; /* Para el posicionamiento del texto */
-    overflow: hidden; /* Para ocultar el texto cuando se seleccione */
-    font-family: 'Rocher'; /* Fuente más atractiva */
-    font-size: 35px; /* Tamaño de letra más grande */
-    width: 200px; /* Ancho específico del botón */
+    background-color: #9b59b6;
+    color: white;
+    padding: 10px 5px;
+    border-radius: 20px;
+    text-align: center;
+    cursor: text;
+    display: inline-block;
+    margin-left: 10px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Rocher';
+    font-size: 35px;
+    width: 200px;
 }
 
 .boton-id::placeholder {
-    color: white; /* Color del texto del placeholder */
-    opacity: 0.7; /* Opacidad del placeholder */
+    color: white;
+    opacity: 0.7;
 }
 
 
@@ -403,36 +403,36 @@ table {
   
   .titol-chulo {
     font-family: 'Rocher';
-    font-size: 50px; /* Ajusta el tamaño según tus preferencias */
+    font-size: 50px;
     color: #FFFF00;
   }
 
   .textarea {
-    background-color: #D8BFD8; /* Morado clarito */
+    background-color: #D8BFD8;
     border: 1px solid #ccc;
-    border-radius: 12px; /* Bordes redondeados */
-    width: 45%; /* Tamaño fijo de ancho */
-    height: 60px; /* Tamaño fijo de altura */
+    border-radius: 12px; 
+    width: 45%;
+    height: 60px;
     padding: 10px;
-    resize: none; /* Deshabilitar redimensionar */
+    resize: none;
     font-size: 25px;
     color: #333;
     font-family: 'Calligraffitti', cursive;
   }
 
-/* Estilo base para el contenedor de artículos */
+
 .articulos {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
 }
 
-/* Otros estilos */
+
 main {
     flex: 1;
 }
 
-/* Ajuste de contenedor para la paginación, fijado al fondo */
+
 .pagination {
     position: fixed;
     bottom: 0;
@@ -449,7 +449,7 @@ main {
     z-index: 1000;
 }
 
-/* Estilos para los botones de paginación */
+
 .pagination a {
     padding: 15px 20px;
     text-decoration: none;
@@ -458,22 +458,22 @@ main {
     transition: background-color 0.3s;
     border-radius: 4px;
     margin: 0 5px;
-    background: rgba(0, 0, 0, 0.3); /* Fondo semitransparente */
+    background: rgba(0, 0, 0, 0.3);
 }
 
-/* Efectos al pasar por encima de los botones */
+
 .pagination a:hover,
 .pagination a.active {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Efecto hover y estilo de botones deshabilitados */
+
 .pagination a:hover {
-    background-color: #4CAF50; /* Efecto hover para resaltar */
+    background-color: #4CAF50;
 }
 
 .pagination a.active {
-    background-color: #4CAF50; /* Página activa */
+    background-color: #4CAF50;
     color: white;
     border: 1px solid #4CAF50;
 }
@@ -488,12 +488,12 @@ main {
 
 
 .box {
-    position: fixed; /* Fija el contenedor en la pantalla */
-    bottom: 0%; /* Espacio desde el fondo de la ventana */
-    left: 0px; /* Espacio desde el lado izquierdo de la ventana */
-    padding: 10px; /* Espaciado interior */
-    border-radius: 5px; /* Bordes redondeados */
-    z-index: 1000; /* Asegura que esté encima de otros elementos */
+    position: fixed;
+    bottom: 0%;
+    left: 0px;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
   }
   
   .box select {

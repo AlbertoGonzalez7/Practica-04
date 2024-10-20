@@ -1,5 +1,6 @@
 <?php
-# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
+
 include 'verificar_sessio.php';
 include "Vistes/navbar_view.php";
 
@@ -12,19 +13,19 @@ if (isset($_SESSION['usuari'])) {
 ?>
 
 <?php 
-# Alberto González Benítez, 2n DAW, Pràctica 02 - Connexions PDO
+
 require_once "Database/connexio.php";
 
 $connexio = new PDO("mysql:host=$db_host; dbname=$db_nom", $db_usuari, $db_password);
 
 
-// Comprueba si el usuario está logueado
+// Comprobar que estigui loguejat l'usuari
 if (!isset($_SESSION['user_id'])) {
-    header("Location: Login/login.php"); // Redirigir a login si no está autenticado
+    header("Location: Login/login.php"); 
     exit();
 }
 
-$usuario_id = $_SESSION['user_id']; // Obtener el ID del usuario de la sesión
+$usuari_id = $_SESSION['user_id']; // ID de l'usuari
 
 // Número d'articles per pàgines
 $articles_per_pagina = isset($_GET['articles_per_pagina']) ? (int)$_GET['articles_per_pagina'] : 5;
@@ -43,8 +44,8 @@ if ($pagina_actual < 1) {
 }
 
 // Obtenir el número total d'articles per aquest usuari
-$total_articles = $connexio->prepare('SELECT COUNT(*) FROM articles WHERE usuari_id = :usuario_id');
-$total_articles->bindValue(':usuario_id', $usuario_id, PDO::PARAM_INT);
+$total_articles = $connexio->prepare('SELECT COUNT(*) FROM articles WHERE usuari_id = :usuari_id');
+$total_articles->bindValue(':usuari_id', $usuari_id, PDO::PARAM_INT);
 $total_articles->execute();
 $total_articles = $total_articles->fetchColumn();
 $total_pagines = ceil($total_articles / $articles_per_pagina);
@@ -62,11 +63,12 @@ if (!isset($_GET['pagina']) || !is_numeric($_GET['pagina']) || $_GET['pagina'] <
 }
 
 // Es per calcular els articles per pàgines, si s'està en la pàgina 4:
+// Fa el següent calcul: 4-1 = 3, * articles_per_pagina (posem 5) = 15, llavors ha de mostrar a partir del 15
 $offset = ($pagina_actual - 1) * $articles_per_pagina;
 
 // Obtindre els articles en la pàgina actual per aquest usuari
-$select = $connexio->prepare("SELECT * FROM articles WHERE usuari_id = :usuario_id LIMIT :offset, :articles_per_pagina");
-$select->bindValue(':usuario_id', $usuario_id, PDO::PARAM_INT);
+$select = $connexio->prepare("SELECT * FROM articles WHERE usuari_id = :usuari_id LIMIT :offset, :articles_per_pagina");
+$select->bindValue(':usuari_id', $usuari_id, PDO::PARAM_INT);
 $select->bindValue(':offset', $offset, PDO::PARAM_INT);
 $select->bindValue(':articles_per_pagina', $articles_per_pagina, PDO::PARAM_INT);
 // Executem la comanda.
@@ -95,50 +97,59 @@ function mostrarTaula($resultats){
     echo "</div>";
 }
 
-// Generar la paginació
+// Funció per generar la paginació
 function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) {
     echo "<div class='pagination'>";
 
+    // Botó per anar a la primera pàgina
     if ($pagina_actual > 1) {
-        echo "<a href='?pagina=1&articles_per_pagina=$articles_per_pagina'>&laquo;</a>";  // Ir al inicio
+        echo "<a href='?pagina=1&articles_per_pagina=$articles_per_pagina'>&laquo;</a>";
     } else {
         echo "<a href='#' class='disabled'>&laquo;</a>";
     }
 
+    // Botó per anar a la pàgina anterior
     if ($pagina_actual > 1) {
-        echo "<a href='?pagina=" . ($pagina_actual - 1) . "&articles_per_pagina=$articles_per_pagina'>&lsaquo;</a>";  // Ir una página atrás
+        echo "<a href='?pagina=" . ($pagina_actual - 1) . "&articles_per_pagina=$articles_per_pagina'>&lsaquo;</a>";
     } else {
         echo "<a href='#' class='disabled'>&lsaquo;</a>";
     }
 
-    // Mostrar números de páginas
+    // Mostra el número de pàgines
     if ($total_pagines <= 7) {
         for ($i = 1; $i <= $total_pagines; $i++) {
-            if ($i == $pagina_actual) {
-                echo "<a class='active' href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>"; // Cambiar el color a verde si es la página actual
-            } else {
-                echo "<a href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>";
-            }
-        }
-    } else {
-        echo "<a href='?pagina=1&articles_per_pagina=$articles_per_pagina' class='" . ($pagina_actual == 1 ? "active" : "") . "'>1</a>";
-
-        if ($pagina_actual > 4) {
-            echo "<span>...</span>";
-        }
-
-        for ($i = max(2, $pagina_actual - 2); $i <= min($pagina_actual + 2, $total_pagines - 1); $i++) {
             if ($i == $pagina_actual) {
                 echo "<a class='active' href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>";
             } else {
                 echo "<a href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>";
             }
         }
+    } else {
+        // Si hi ha moltes pàgines, mostra el primer número de pàgina i l'últim,
+        echo "<a href='?pagina=1&articles_per_pagina=$articles_per_pagina' class='" . ($pagina_actual == 1 ? "active" : "") . "'>1</a>";
 
+        // Si la pàgina actual és major que 4, mostra punts suspensius
+        if ($pagina_actual > 4) {
+            echo "<span>...</span>";
+        }
+
+        // Mostra les pàgines depenent de la pagina actual, dues abans i dues després
+        for ($i = max(2, $pagina_actual - 2); $i <= min($pagina_actual + 2, $total_pagines - 1); $i++) {
+            // Si és la pàgina actual, color verd
+            if ($i == $pagina_actual) {
+                echo "<a class='active' href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>";
+            } else {
+                // Mostra les altres pàgines
+                echo "<a href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>";
+            }
+        }
+
+        // Si la pàgina actual està lluny del final, mostra punts suspensius
         if ($pagina_actual < $total_pagines - 3) {
             echo "<span>...</span>";
         }
 
+        // Mostra l'última pàgina, color verd si es l'actual
         if ($pagina_actual != $total_pagines) {
             echo "<a href='?pagina=$total_pagines&articles_per_pagina=$articles_per_pagina'>$total_pagines</a>";
         } else {
@@ -146,14 +157,16 @@ function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) 
         }
     }
 
+    // Botó per anar a la pàgina següent
     if ($pagina_actual < $total_pagines) {
-        echo "<a href='?pagina=" . ($pagina_actual + 1) . "&articles_per_pagina=$articles_per_pagina'>&rsaquo;</a>";  // Ir una página adelante
+        echo "<a href='?pagina=" . ($pagina_actual + 1) . "&articles_per_pagina=$articles_per_pagina'>&rsaquo;</a>";
     } else {
         echo "<a href='#' class='disabled'>&rsaquo;</a>";
     }
 
+    // Botó per anar a l'última pàgina
     if ($pagina_actual < $total_pagines) {
-        echo "<a href='?pagina=$total_pagines&articles_per_pagina=$articles_per_pagina'>&raquo;</a>";  // Ir al final
+        echo "<a href='?pagina=$total_pagines&articles_per_pagina=$articles_per_pagina'>&raquo;</a>";
     } else {
         echo "<a href='#' class='disabled'>&raquo;</a>";
     }
