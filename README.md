@@ -1,5 +1,8 @@
 # Pràctica 04 - Inici d'usuaris i registre de sessions - Alberto González
 
+## Testejar el projecte:
+- [Enllaç per provar](https://xampp.garc.pro/www/practiques/Practica-04-alberto/index.php)
+
 ## Usuari de Prova
 - **Usuari**: Xavi 
 - **Contrasenya**: P@ssw0rd
