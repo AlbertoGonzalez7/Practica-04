@@ -1,10 +1,14 @@
 # Pràctica 04 - Inici d'usuaris i registre de sessions - Alberto González
 
+## Usuari de Prova
+- **Usuari**: Xavi 
+- **Contrasenya**: P@ssw0rd
+
 ## Descripció
 Aquest projecte és una aplicació web que permet als usuaris registrar-se i iniciar sessió. Els usuaris poden veure tots els articles creats quan no estan loguejats. Un cop inicien sessió, només poden veure els articles que ells mateixos han creat. A més, els usuaris tenen la capacitat d'inserir, modificar i eliminar els seus propis articles.
 
 ## Temàtica
-La temàtica del projecte està inspirada en **Clash of Clans**.
+La temàtica del projecte està inspirada en el videojoc **Clash of Clans**.
 
 ## Característiques
 
@@ -20,18 +24,21 @@ La temàtica del projecte està inspirada en **Clash of Clans**.
     - Almenys un símbol.
 - **Missatges amb Cookies**: S'han utilitzat cookies per mostrar missatges d'èxit en iniciar i tancar sessió.
 - **Timeout de Sessió**: La sessió es tanca automàticament després de 40 minuts d'inactivitat.
-
-## Usuari de Prova
-- **Usuari**: Xavi 
-- **Contrasenya**: P@ssw0rd
+- **Paginació**: S'ha implementat un sistema de paginació per a la visualització dels articles.
+- **Selecció d'Articles per Pàgina**: Els usuaris poden escollir quants articles volen veure per pàgina (5, 10 o 15).
 
 ## Estructura de Carpetes
 - **CSS**: Conté tots els arxius CSS del projecte.
-- **Database**: Conté l'arxiu de connexió a la base de dades (`connexio.php`) i la base de dades (`pt04_alberto_gonzalez.sql`).
+- **Database**: Conté la base de dades (`pt04_alberto_gonzalez.sql`).
 - **Login**: Conté tota la funcionalitat relacionada amb el login, logout i registre d'usuaris.
 - **Vistes**: Conté les vistes que es mostren a l'usuari.
-- **Arrel**: Conté els controladors i altres arxius rellevants per al funcionament de l'aplicació.
+- **Controlador**: Conté els arxius que actuen com a intermediaris entre les vistes i els models.
+- **Model**: Conté els arxius relacionats amb la lògica de negoci i l'accés a dades.
+- **Arrel**: Conté el fitxer (`index.php`) i aquest mateix README.
 
 ## Navegació
-En totes les vistes s'inclou un **navbar** que permet als usuaris tancar sessió fàcilment.
+- S'ha implementat una barra de navegació (navbar) en totes les vistes que permet als usuaris tancar sessió fàcilment.
+- La barra de navegació també mostra el nom de l'usuari actualment connectat.
 
+## Gestió d'Errors
+- S'han implementat missatges d'error i èxit detallats per proporcionar una millor retroalimentació a l'usuari.
