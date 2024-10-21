@@ -48,7 +48,7 @@ if (isset($_SESSION['usuari'])) {
       // Si se ha enviat el formulari de logout
       if (isset($_POST['logout'])) {
           $current_page = $_SERVER['SCRIPT_NAME'];
-          if (strpos($current_page, 'Vistes/') !== false) {
+          if (strpos($current_page, 'Vistes/') !== false || strpos($current_page, 'Controlador/') !== false) {
               // Si estem a la carpeta "Vistes:"
               header('Location: ../Login/logout.php');
           } else {

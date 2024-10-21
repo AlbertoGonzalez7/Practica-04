@@ -1,31 +1,10 @@
-<?php
-# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
-
-include 'verificar_sessio.php';
-include "Vistes/navbar_view.php";
-
-if (isset($_SESSION['usuari'])) {
-    $usuari = $_SESSION['usuari'];
-} else {
-    $usuari = "Invitat";
-}
-
-?>
-
 <?php 
+# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
+require_once "../Model/ArticlesModel.php"; // Ajustado para subir un nivel a 'Model'
+require_once "../Model/connexio.php";      // Ajustado para subir un nivel
 
-require_once "Database/connexio.php";
-
-$connexio = new PDO("mysql:host=$db_host; dbname=$db_nom", $db_usuari, $db_password);
-
-
-// Comprobar que estigui loguejat l'usuari
-if (!isset($_SESSION['user_id'])) {
-    header("Location: Login/login.php"); 
-    exit();
-}
-
-$usuari_id = $_SESSION['user_id']; // ID de l'usuari
+// Obtenim la connexió a la base de dades
+$connexio = connectarBD();
 
 // Número d'articles per pàgines
 $articles_per_pagina = isset($_GET['articles_per_pagina']) ? (int)$_GET['articles_per_pagina'] : 5;
@@ -43,11 +22,8 @@ if ($pagina_actual < 1) {
     exit();
 }
 
-// Obtenir el número total d'articles per aquest usuari
-$total_articles = $connexio->prepare('SELECT COUNT(*) FROM articles WHERE usuari_id = :usuari_id');
-$total_articles->bindValue(':usuari_id', $usuari_id, PDO::PARAM_INT);
-$total_articles->execute();
-$total_articles = $total_articles->fetchColumn();
+// Obtenir el número total d'articles
+$total_articles = obtenirTotalArticles($connexio);
 $total_pagines = ceil($total_articles / $articles_per_pagina);
 
 // Si intenten possar una pàgina que sigui més gran al número total de pàgines, redirigeix a la pàgina 1
@@ -62,32 +38,23 @@ if (!isset($_GET['pagina']) || !is_numeric($_GET['pagina']) || $_GET['pagina'] <
     exit();
 }
 
-// Es per calcular els articles per pàgines, si s'està en la pàgina 4:
-// Fa el següent calcul: 4-1 = 3, * articles_per_pagina (posem 5) = 15, llavors ha de mostrar a partir del 15
+// Es per calcular els articles per pàgines
 $offset = ($pagina_actual - 1) * $articles_per_pagina;
 
-// Obtindre els articles en la pàgina actual per aquest usuari
-$select = $connexio->prepare("SELECT * FROM articles WHERE usuari_id = :usuari_id LIMIT :offset, :articles_per_pagina");
-$select->bindValue(':usuari_id', $usuari_id, PDO::PARAM_INT);
-$select->bindValue(':offset', $offset, PDO::PARAM_INT);
-$select->bindValue(':articles_per_pagina', $articles_per_pagina, PDO::PARAM_INT);
-// Executem la comanda.
-$select->execute();
-$resultats = $select->fetchAll();
+// Obtindre els articles en la pàgina actual
+$resultats = obtenirArticlesPaginatsSU($offset, $articles_per_pagina, $connexio);
 
 // Funció per mostrar els articles
 function mostrarTaula($resultats){
     echo "<div class='table-wrapper'>";
     echo "<table class='fl-table'>
     <tr>
-    <th>ID</th>
-    <th>Titol</th>
+    <th>Títol</th>
     <th>Cos</th>
     </tr>";
 
     foreach($resultats as $res) {
         echo "<tr>";
-        echo "<td>" . htmlspecialchars($res['ID']) . "</td>";
         echo "<td>" . htmlspecialchars($res['titol']) . "</td>";
         echo "<td>" . htmlspecialchars($res['cos']) . "</td>";
         echo "</tr>";
@@ -97,7 +64,7 @@ function mostrarTaula($resultats){
     echo "</div>";
 }
 
-// Funció per generar la paginació
+// Generar la paginació
 function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) {
     echo "<div class='pagination'>";
 
@@ -125,31 +92,24 @@ function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) 
             }
         }
     } else {
-        // Si hi ha moltes pàgines, mostra el primer número de pàgina i l'últim,
         echo "<a href='?pagina=1&articles_per_pagina=$articles_per_pagina' class='" . ($pagina_actual == 1 ? "active" : "") . "'>1</a>";
 
-        // Si la pàgina actual és major que 4, mostra punts suspensius
         if ($pagina_actual > 4) {
             echo "<span>...</span>";
         }
 
-        // Mostra les pàgines depenent de la pagina actual, dues abans i dues després
         for ($i = max(2, $pagina_actual - 2); $i <= min($pagina_actual + 2, $total_pagines - 1); $i++) {
-            // Si és la pàgina actual, color verd
             if ($i == $pagina_actual) {
                 echo "<a class='active' href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>";
             } else {
-                // Mostra les altres pàgines
                 echo "<a href='?pagina=$i&articles_per_pagina=$articles_per_pagina'>$i</a>";
             }
         }
 
-        // Si la pàgina actual està lluny del final, mostra punts suspensius
         if ($pagina_actual < $total_pagines - 3) {
             echo "<span>...</span>";
         }
 
-        // Mostra l'última pàgina, color verd si es l'actual
         if ($pagina_actual != $total_pagines) {
             echo "<a href='?pagina=$total_pagines&articles_per_pagina=$articles_per_pagina'>$total_pagines</a>";
         } else {
@@ -173,20 +133,28 @@ function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) 
 
     echo "</div>";
 }
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="CSS/estils.css">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/estils.css"> <!-- Ajustado para subir un nivel -->
+    <title>Taula d'articles</title>
 </head>
 <body>
-    <p class="titol">Taula d'articles</p><br>
+    <p class="titol">Taula d'articles</p>
     
+    <a href='../Login/login.php'>
+            <button class="login" role="button">Login/Sign up</button>
+        </a>
+
+    <a href='../index.php'>
+        <button class="tornar_mostrar" role="button">Anar enrere</button>
+    </a>
 
     <br>
     
@@ -205,14 +173,7 @@ function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina) 
             <option value="?pagina=1&articles_per_pagina=10" <?php echo (isset($_GET['articles_per_pagina']) && $_GET['articles_per_pagina'] == 10) ? 'selected' : ''; ?>>10 articles</option>
             <option value="?pagina=1&articles_per_pagina=15" <?php echo (isset($_GET['articles_per_pagina']) && $_GET['articles_per_pagina'] == 15) ? 'selected' : ''; ?>>15 articles</option>
         </select>
-
     </div>
 
-        <div>
-            <a href="index_usuari.php">
-                <button type="button" class="tornar" role="button">Anar enrere</button>
-            </a>
-        </div>
-        
-</body>
+</body> 
 </html>

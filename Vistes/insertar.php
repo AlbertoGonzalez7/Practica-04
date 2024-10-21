@@ -1,7 +1,7 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
 
-include '../verificar_sessio.php';
+include '../Controlador/verificar_sessio.php';
 include "navbar_view.php";
 
 if (isset($_SESSION['usuari'])) {
@@ -23,7 +23,7 @@ if (isset($_SESSION['usuari'])) {
     <link rel="stylesheet" type="text/css" href="../CSS/estil_formulari.css">
 </head>
 <body>   
-    <form method="POST" action="../insertar.php">
+    <form method="POST" action="../Controlador/insertar.php">
         <div class="form">
             <div class="title">Insertar article</div>
             <div class="subtitle">Afegeix el teu article! Títol i Cos</div>
@@ -60,7 +60,7 @@ if (isset($_SESSION['usuari'])) {
     </form>
 
         <div>
-            <a href="../index_usuari.php">
+            <a href="../Vistes/index_usuari.php">
                 <button type="button" class="tornar" role="button">Anar enrere</button>
             </a>
         </div>

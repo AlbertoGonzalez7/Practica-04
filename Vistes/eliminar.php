@@ -1,7 +1,7 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
 
-include '../verificar_sessio.php';
+include '../Controlador/verificar_sessio.php';
 include "navbar_view.php";
 
 
@@ -24,7 +24,7 @@ if (isset($_SESSION['usuari'])) {
 </head>
 <body>   
 <h2>
-<form method="POST" action="../eliminar.php">
+<form method="POST" action="../Controlador/eliminar.php">
 
     <div class="form">
         <div class="title">Eliminar article</div>
@@ -56,7 +56,7 @@ if (isset($_SESSION['usuari'])) {
 </h2>
 
         <div>
-            <a href="../index_usuari.php">
+            <a href="../Vistes/index_usuari.php">
                 <button type="button" class="tornar" role="button">Anar enrere</button>
             </a>
         </div>

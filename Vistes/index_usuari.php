@@ -1,8 +1,8 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
 
-include 'verificar_sessio.php';
-include "Vistes/navbar_view.php";
+include '../Controlador/verificar_sessio.php';
+include "../Vistes/navbar_view.php";
 
 if (isset($_SESSION['usuari'])) {
     $usuari = $_SESSION['usuari'];
@@ -18,19 +18,19 @@ if (isset($_SESSION['usuari'])) {
 <head>
     <meta charset="utf-8" />
     <title>Pràctica 4</title>
-    <link rel="stylesheet" type="text/css" href="CSS/estils.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/estils.css">
 </head>
 
 <body>
-    <form method="POST" action="../Database/connexio.php">
+    <form method="POST" action="../Model/connexio.php">
         <h2>
             <p class="titol">Selecciona una opció</p>
             <br><br>
 
-            <input type="submit" value="Insertar article" class="boto" name="insert" formaction="Vistes/insertar.php">
-            <input type="submit" value="Mostrar articles" class="boto" name="select" formaction="mostrar_usuari.php">
-            <input type="submit" value="Modificar article" class="boto" name="modificar" formaction="Vistes/modificar.php">
-            <input type="submit" value="Eliminar article" class="boto" name="eliminar" formaction="Vistes/eliminar.php">
+            <input type="submit" value="Insertar article" class="boto" name="insert" formaction="../Vistes/insertar.php">
+            <input type="submit" value="Mostrar articles" class="boto" name="select" formaction="../Controlador/mostrar_usuari.php">
+            <input type="submit" value="Modificar article" class="boto" name="modificar" formaction="../Vistes/modificar.php">
+            <input type="submit" value="Eliminar article" class="boto" name="eliminar" formaction="../Vistes/eliminar.php">
         </h2>
     </form>
 

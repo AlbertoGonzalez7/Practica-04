@@ -157,7 +157,34 @@ table {
 }
 
 
+.tornar_mostrar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #4545f3; 
+  border-radius: 999px;
+  box-shadow: #4545f3 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Inter, Helvetica, "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", EmojiSymbols, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
+}
+
+
 .login {
+    position: absolute;
     background: #de6c46;
     border-radius: 999px;
     box-shadow: #ae5826 0 10px 20px -10px;
@@ -179,7 +206,6 @@ table {
     border: 0;
 
     
-    position: fixed;
     top: 10px;
     right: 10px;
     z-index: 1000; 

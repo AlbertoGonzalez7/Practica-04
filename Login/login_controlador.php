@@ -2,9 +2,7 @@
 # Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
 
 session_start();
-require_once "../Database/connexio.php";
-
-$connexio = new PDO("mysql:host=$db_host; dbname=$db_nom", $db_usuari, $db_password);
+require_once "../Model/UsuariModel.php"; // Incloem el model d'usuaris
 
 $errors = [];
 $usuari = $password = $confirm_password = "";
@@ -18,88 +16,76 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($accion == 'login') {
         // Processar login
         if (empty($usuari)) {
-            $errors[] = "El camp 'Usuari' és obligatori."; // Error si el camp usuari està buit
+            $errors[] = "El camp 'Usuari' és obligatori.";
         }
         if (empty($password)) {
-            $errors[] = "El camp 'Contrasenya' és obligatori."; // Error si el camp contrasenya està buit
+            $errors[] = "El camp 'Contrasenya' és obligatori.";
         }
 
-        // Si hi ha errors, els guardem
         if (!empty($errors)) {
-            $_SESSION['missatge'] = implode("<br>", $errors); // Guardem els missatges d'error
-            $_SESSION['usuari'] = $usuari; // Guardem el valor de l'usuari
+            $_SESSION['missatge'] = implode("<br>", $errors);
+            $_SESSION['usuari'] = $usuari;
         } else {
             // Verificar que l'usuari existeix
-            $sql = "SELECT * FROM usuaris WHERE usuari = :usuari";
-            $stmt = $connexio->prepare($sql);
-            $stmt->execute(['usuari' => $usuari]);
-            $user = $stmt->fetch(); // Obtenim l'usuari de la base de dades
-            
+            $user = obtenirUsuariPerNom($usuari); // Fem servir la funció del model
+
             if ($user && password_verify($password, $user['contrasenya'])) {
                 // Autenticació exitosa
                 $_SESSION['usuari'] = $user['usuari'];
                 $_SESSION['user_id'] = $user['id'];
-                $_SESSION['start_time'] = time(); // Guardem la hora d'inici de sessió
+                $_SESSION['start_time'] = time(); 
 
-                setcookie('login_exitos', '1', time() + 60, '/'); // Creem una cookie de sessió
+                setcookie('login_exitos', '1', time() + 60, '/');
 
-                header("Location: ../index_usuari.php"); // Redirigim a la pàgina d'usuari
+                header("Location: ../Vistes/index_usuari.php");
                 exit();
             } else {
-                // Si les credencials no són correctes
-                $_SESSION['missatge'] = "Usuari o contrasenya incorrectes"; // Missatge d'error
-                $_SESSION['usuari'] = $usuari; // Guardem el valor de l'usuari
+                // Credencials incorrectes
+                $_SESSION['missatge'] = "Usuari o contrasenya incorrectes";
+                $_SESSION['usuari'] = $usuari;
             }
         }
-        
+
     } elseif ($accion == 'registro') {
         // Processar registre
         $confirm_password = trim($_POST['confirm_pass']);
         $usuari_reg = trim($_POST['usuari_reg']);
 
         if (empty($usuari_reg)) {
-            $errors[] = "El camp 'Usuari' és obligatori."; // Error si el camp usuari per registrar està buit
+            $errors[] = "El camp 'Usuari' és obligatori.";
         }
         if (empty($password)) {
-            $errors[] = "El camp 'Contrasenya' és obligatori."; // Error si el camp contrasenya està buit
+            $errors[] = "El camp 'Contrasenya' és obligatori.";
         }
         if ($password !== $confirm_password) {
-            $errors[] = "Les contrasenyes no coincideixen."; // Error si les contrasenyes no coincideixen
+            $errors[] = "Les contrasenyes no coincideixen.";
         }
 
-        // Verifiquem que la contrasenya compleixi els requisits
         if (!preg_match('/^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,}$/', $password)) {
-            $errors[] = "La contrasenya ha de contenir 8 caràcters, una mayúscula, un número i un símbol."; // Error si la contrasenya no compleix els requisits
+            $errors[] = "La contrasenya ha de contenir 8 caràcters, una mayúscula, un número i un símbol.";
         }
 
-        // Si hi ha errors, els guardem
         if (!empty($errors)) {
-            $_SESSION['missatge'] = implode("<br>", $errors); // Guardem els missatges d'error separats per un salt de línia
+            $_SESSION['missatge'] = implode("<br>", $errors);
             $_SESSION['usuari_reg'] = $usuari_reg;
         } else {
             // Verifiquem si l'usuari ja existeix
-            $sql = "SELECT * FROM usuaris WHERE usuari = :usuari";
-            $stmt = $connexio->prepare($sql);
-            $stmt->execute(['usuari' => $usuari_reg]);
-            $existing_user = $stmt->fetch(); // Busquem si ja existeix l'usuari
+            $existing_user = obtenirUsuariPerNom($usuari_reg);
 
             if ($existing_user) {
-                $_SESSION['missatge'] = "El nom d'usuari ja està agafat"; // Missatge d'error si l'usuari ja existeix
+                $_SESSION['missatge'] = "El nom d'usuari ja està agafat";
                 $_SESSION['usuari_reg'] = $usuari_reg;
             } else {
-                // Insertem el nou usuari a la base de dades
-                $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Hash de la contrasenya
-                $sql = "INSERT INTO usuaris (usuari, contrasenya) VALUES (:usuari, :password)";
-                $stmt = $connexio->prepare($sql);
-                $stmt->execute(['usuari' => $usuari_reg, 'password' => $hashed_password]); // Executem la inserció
+                // Insertem el nou usuari
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                inserirUsuari($usuari_reg, $hashed_password); // Funció del model
 
-                $_SESSION['missatge_exit'] = "Registrat amb èxit!"; // Missatge d'èxit
+                $_SESSION['missatge_exit'] = "Registrat amb èxit!";
                 $_SESSION['usuari_reg'] = "";
             }
         }
     }
 
-    // Redirigim a login.php per mostrar els missatges d'error o èxit
     header("Location: login.php");
     exit();
 }

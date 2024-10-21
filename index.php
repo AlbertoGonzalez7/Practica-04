@@ -19,7 +19,7 @@ include "Login/missatge_logout.php";
         <h2>
             <p class="titol">Selecciona una opció</p><br>
 
-            <input type="submit" value="Mostrar articles" class="boto" name="select" formaction="mostrar.php">
+            <input type="submit" value="Mostrar articles" class="boto" name="select" formaction="Controlador/mostrar.php">
         </h2>
     </form>
 

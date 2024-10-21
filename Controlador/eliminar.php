@@ -1,24 +1,22 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
 
-include 'verificar_sessio.php';
-include 'Vistes/navbar_view.php';
+include 'verificar_sessio.php';  // Cambiado para subir un nivel
+include '../Vistes/navbar_view.php'; // Cambiado para subir un nivel
+require_once "../Model/ArticlesModel.php";
+require_once "../Model/connexio.php";
 
+// Obtenim l'usuari de la sessió
 if (isset($_SESSION['usuari'])) {
     $usuari = $_SESSION['usuari'];
-    $user_id = $_SESSION['user_id'];  // Asegúrate de que el user_id se guarda en la sesión
+    $user_id = $_SESSION['user_id'];  // Assegurar que el user_id es guarda a la sessió
 } else {
     $usuari = "Invitat";
-    $user_id = null;  // Si el usuario no está logueado, el ID será null
+    $user_id = null;  // Si el usuari no està loguejat, el ID serà null
 }
 
-?>
-
-<?php
-
 // Conexió per la base de dades:
-require_once "Database/connexio.php";
-$connexio = new PDO("mysql:host=$db_host; dbname=$db_nom", $db_usuari, $db_password);
+$connexio = connectarBD();
 
 $errors = [];
 $id = trim($_POST['id'] ?? null);
@@ -32,28 +30,24 @@ if (empty($id)) {
         $errors[] = "El camp 'ID' no pot contenir lletres, només números.";
         unset($_SESSION['id']);
     } else {
-        $_SESSION['id'] = $id;  // Guardem l'ID si es vàlid.
+        $_SESSION['id'] = $id;  // Guardem l'ID si és vàlid.
     }
 }
 
 // Si hi ha errors, els guardem i els mostrem a la vista:
 if (!empty($errors)) {
     $_SESSION['missatge'] = implode("<br>", $errors);
-    header("Location: Vistes/eliminar.php");
+    header("Location: ../Vistes/eliminar.php"); // Cambiado para subir un nivel
     exit();
 }
 
 // Si hi ha una búsqueda d'un article:
 if (isset($_POST['buscar']) && $id) {
-    $select = $connexio->prepare('SELECT * FROM articles WHERE id = ? AND usuari_id = ?');
-    $select->execute([$id, $user_id]);
-    unset($_SESSION['id']);
+    $article = buscarArticlePerUsuari($id, $user_id, $connexio);
 
-    if ($select->rowCount() > 0) {
+    if ($article) {
         // Mostrem l'article
-        $article = $select->fetch();
         echo "<p class='titol'>Article:</p>";
-
         echo "<br><br><br><br><div class='table-wrapper'>
                 <table class='fl-table'>
                     <tr><th>ID</th><th>Títol</th><th>Cos</th></tr>
@@ -66,51 +60,47 @@ if (isset($_POST['buscar']) && $id) {
               </div>";
 
         // Botons per eliminar o tornar enrere
-        echo "<form method='POST' action='eliminar.php'>
+        echo "<form method='POST' action='modificar.php'>  <!-- Cambiado a modificar.php -->
                 <input type='hidden' name='id' value='{$article['ID']}' />
                 <input type='submit' value='Eliminar' class='boto' name='eliminar'><br><br>
               </form>
-                <a href='Vistes/eliminar.php'>
+              <a href='../Vistes/eliminar.php'>
                 <button class='tornar' role='button'>Anar enrere</button>
-                </a>";
+              </a>";
     } else {
         echo "<p class='titol'>L'article no ha sigut trobat</p>
-                <a href='index_usuari.php'>
+              <a href='../Vistes/index_usuari.php'>
                 <button class='tornar' role='button'>Anar enrere</button>
-                </a>";
+              </a>";
     }
 }
 
 // Si es fa clic en el botó d'eliminar
 if (isset($_POST['eliminar']) && $id) {
-    // Verifiquem que l'article és de l'usuari
-    $checkOwnership = $connexio->prepare('SELECT * FROM articles WHERE id = ? AND usuari_id = ?');
-    $checkOwnership->execute([$id, $user_id]);
-
-    if ($checkOwnership->rowCount() > 0) {
-        // L'eliminem
-        $del = $connexio->prepare('DELETE FROM articles WHERE id = ?');
-        $del->execute([$id]);
-        echo "<p class='titol'>Article eliminat correctament</p><br>";
-        echo "<a href='index_usuari.php'>
-              <button class='tornar' role='button'>Anar enrere</button>
-              </a>";
+    if (verificarPropietatArticle($id, $user_id, $connexio)) {
+        if (eliminarArticle($id, $connexio)) {
+            echo "<p class='titol'>Article eliminat correctament</p><br>";
+            echo "<a href='../Vistes/index_usuari.php'>
+                  <button class='tornar' role='button'>Anar enrere</button>
+                  </a>";
+        }
     } else {
         echo "<p class='titol'>No pots eliminar aquest article, no ets el propietari.</p><br>";
-        echo "<a href='index_usuari.php'>
+        echo "<a href='../Vistes/index_usuari.php'>
               <button class='tornar' role='button'>Anar enrere</button>
               </a>";
     }
 }
 // Estils:
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="CSS/estils.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/estils.css"> <!-- Cambiado para subir un nivel -->
     <title>Eliminar article</title>
 </head>
 <body>
