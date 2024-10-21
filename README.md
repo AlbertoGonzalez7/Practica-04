@@ -1,4 +1,4 @@
-# Projecte Web: Inici de Sessió i Registre d'Usuaris
+# Pràctica 04 - Inici d'usuaris i registre de sessions - Alberto González
 
 ## Descripció
 Aquest projecte és una aplicació web que permet als usuaris registrar-se i iniciar sessió. Els usuaris poden veure tots els articles creats quan no estan loguejats. Un cop inicien sessió, només poden veure els articles que ells mateixos han creat. A més, els usuaris tenen la capacitat d'inserir, modificar i eliminar els seus propis articles.
